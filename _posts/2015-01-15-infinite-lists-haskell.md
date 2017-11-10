@@ -1,0 +1,56 @@
+---
+layout: post
+title: Infinite Lists in Haskell
+date: 2015-01-15 17:52:02.000000000 +00:00
+---
+
+I've been tinkering a bit with learning Haskell at home, and it's been a
+surprisingly pleasant experience so far. Some nice things about it; 
+
+* Haskell is really terse (you don't need to write much to do complex things)
+* It's very expressive (Haskell code has a lot of information packed in)
+* It's got a great community and a lot of good resources
+
+<!-- more -->
+
+With those things said - because most of my current programming experience
+comes from the object-oriented and imperative paradigms, I have found Haskell a
+challenge to learn - mostly because the mindset is so different to that of
+imperative programming.
+
+One of my favourite features of Haskell so far is its lazy evaluation - which
+basically means that lots of listy stuff (list comprehensions, recursive list
+manipulation functions, etc) use internal mechanisms that somewhat resemble
+coroutines under the hood (which are [something I've touched upon
+before](https://blog.assemblyco.de/optimising-the-fibonacci-sequence-with-generators/)).
+Basically, the Haskell compiler or interpreter puts off evaluating any
+expression until it absolutely HAS to.
+
+What that means in practice is that when you ask the compiler to evaluate an
+expression (e.g. `sum [1..10]`), the `sum` function will add the first value of
+the sequence to an accumulator value, then it will request the second value and
+add that, and so on and so forth. Eagerly evaluated languages (C, Java, etc)
+differ slightly, because they will wait for the *entire list* to be generated
+before running the `sum` function.
+
+Lazy evaluation also means that it's possible to use infinite lists in a
+meaningful way. So in danger of flogging the dead horse of "using the Fibonacci
+sequence in programming demonstrations", this afternoon I spent a few minutes
+writing a recursive Fibonacci function. As a side note, it's pretty cool to be
+able to generate an infinite Fibonacci sequence using just three lines of code.
+
+```haskell
+fibonacci :: (Integral a) => [a]
+fibonacci = 1:1:(fibs [1, 1])
+            where fibs all@(a:b:cs) = (a+b):fibs (a+b:all)
+```
+
+"So, what benefit does lazy evaluation bring?" you might ask. Well, it's really
+useful for expressions like `takeWhile (< 40000) fibonacci`. Essentially, what
+happens is that the Haskell interpreter "asks" for the first value of
+`fibonacci`, asks "is it less than 40,000?", and then lazily returns the value
+(or "yields" the value, to use Python-speak) - and this process repeats until
+the function `(< 40000)` returns `False`. This means that the interpreter will
+**never** have to calculate more than one term of the Fibonacci sequence at a
+time, and this makes for efficient code - code that never does any more than it
+absolutely has to (hence "lazy", I suppose).

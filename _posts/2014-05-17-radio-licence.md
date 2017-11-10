@@ -1,0 +1,33 @@
+---
+layout: post
+title: Experience with Amateur Radio
+date: 2014-05-17 02:04:55.000000000 +01:00
+---
+
+So, during the last couple of days I sat (and hopefully passed) the RSGB
+Foundation amateur radio exam. I've been excited for this moment for a while
+(~6 months!), and with any luck I should receive my callsign in the next few
+weeks. Hopefully the callsign I've chosen (**M6CCN** - my initials) is still
+available - and then I'll be able to do my first solo QSO/CQ calls.
+
+<!-- more -->
+
+The main thing that got me interested in amateur radio was the possibility of
+being able to communicate with the International Space Station - I've always
+been interested in space exploration (in fact, I work as part of a space
+research organisation), so that aspect of amateur radio really appealed to me.
+Apparently the space station transmits voice calls every so often, but I
+haven't managed to pick up any as of yet (they mostly seem to transmit APRS
+packets).
+
+There are some great places to find information on ISS passes - like
+[here](http://www.n2yo.com/passes/?s=25544), as well as plenty of content on
+Google - there is a large amount of material online dedicated to communicating
+with the ISS.
+
+A related project I'm considering undertaking over the summer will involve
+taking a DVR tuner and connecting it to my Raspberry Pi - and using the two as
+a software defined radio (SDR). Then it will be a case of programming the Pi to
+record radio transmissions on 145.800 and 145.825 at the same time as ISS
+passes - which can then be analysed at a later date. This will make it
+relatively easy to listen to (and decode) the ISS APRS data transmissions.

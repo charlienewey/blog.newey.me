@@ -1,0 +1,70 @@
+---
+layout: post
+title: OpenSesame
+date: 2014-11-25 19:33:29.000000000 +00:00
+---
+
+I had an idea while getting into my car at lunchtime today - what if you could
+modify your car to add keyless entry? This idea only really struck me because
+I'd *misplaced* my keys, but hey - an idea is an idea, so I ran with it.
+
+<!-- more -->
+
+I thought about plugging a Bluetooth shield into an Arduino and running it from
+the car's internal electronics (most cars have a cigarette lighter which
+provide 12v output - and they usually contain enough juice to run a small
+Arduino circuit for a few months at a time).
+
+From there, you could run a small (it would have to be small - the amount of
+memory and processing power on an Arduino is highly limited). I'd run a small
+service that connected to Bluetooth devices and used a very simple (stupidly
+simple) authentication protocol to verify a person's identity based on their
+phone.
+
+There were two authentication models I toyed with;
+
+### Salted Hashes (Nonce-based)
+
+This is fairly common practice in basic authentication, and seems like it would
+be a best-practice approach for this sort of task.
+
+* a **constant** seed value is pre-agreed securely between the two devices -
+  maybe a random string or UUID
+* the Arduino generates a random single-use salt (otherwise known as a nonce)
+  and concatenates it with a seed value and then calculates the value of a
+  cryptographic hash function (e.g. SHA256)
+* the Arduino sends the salt to the client (in this case, a mobile phone) via
+  Bluetooth
+* the client takes the salt, concatenates it with the pre-agreed seed value and
+  calculates the hash value
+* the client sends the salted hash value to the Arduino, where the two values
+  are compared
+* if the hashes match, access is granted (in this case, the car is unlocked)
+
+
+### Compound Cyclic Hashing
+
+I'm not sure of the security/cryptographic viability of this process (I'm not
+even sure of the formal name!) - but I do know that some car key fobs work on a
+variant of this method, and it seems notionally secure.
+
+* a **constant** seed value is pre-agreed securely between the two devices -
+  maybe a random string or UUID
+* a hash is calculated of the seed value, which is then concatenated with the
+  seed value and hashed again - this is the first round
+* the client does the same hash calculation (ensuring that the number of
+  "rounds" between the client/Arduino are the same)
+* the compound hash is sent to the Arduino, where it is validated
+
+I couldn't really think of an eloquent way to explain this authentication
+method, so to help, I made a diagram.
+
+![Simplified OpenSesame authentication model](/images/open-sesame.png)
+
+Simple, fast, and extremely easy to implement.
+
+Either way, the idea of `OpenSesame` (that's what I'd call it, as it would be
+open source - and I like puns) seems like a fun weekend project. Besides,
+keyless entry on my car would be a nice little bonus feature!
+
+Coming to think of it, I might buy an Arduino...

@@ -1,0 +1,238 @@
+---
+layout: post
+title: Optimisation with Commons Math
+date: 2017-08-06 15:18:21.000000000 +01:00
+---
+
+This post is about numerical optimisation in Apache Commons Math; more
+specifically, minimising a special case of a logistic function with some
+equality constraints (i.e. the solution must be positive and within certain
+bounds). This post will probably be a bit rough and ready because I'm mostly
+writing this as an aide-memoire to my future self - but someone else might
+stumble upon this one day while trying to solve a similar problem, and I hope
+that it's useful to them, too.
+
+I'm writing this because I've found the documentation for the Apache Commons
+Math libraries a little lacking - the APIs are quite well documented at a
+granular level (each method has a reasonable description, and so on), but when
+it comes to putting together a solution to a problem composed of lots of
+individual parts... the documentation is in definite need of improvement. It
+took me a lot of trial and error to solve this problem with any reliability -
+including trawling through lots of test cases in the source code just to figure
+out how certain classes worked. I'll include little snippets of Java code as I
+go along so that hopefully, you can piece together your own solution.
+
+Before I get started, I'll talk a little bit about the function I'm trying to
+optimise, *why* I'm trying to optimise it, and a little bit of background
+information on the project that requires this. For my major project and
+dissertation for my MSc in Data Science, I'm working on an algorithmic
+optimisation problem known as "influence maximisation". Essentially, the
+problem can be phrased as something like this; "given a social network and a
+message that you want to spread, what is the *most effective* set of people to
+contact, such that my message spreads as far as possible, as cheaply as
+possible?".
+
+## Figuring out what I want to do
+
+I'm making a modification to the traditional algorithmic problem by
+incorporating the idea of *incentives* into the optimisation. That is, instead
+of choosing *k* individuals to "activate" and spread a message, the chosen
+individuals are instead given a continuously-valued incentive - which
+monotonically increases their probability of activation based on the size of
+the incentive. This incentive-based node activation function can essentially
+take the form of *any* well-behaved (i.e. smooth) and monotonic function, but
+in this case, I've chosen the logistic function (see below) because it's got a
+pretty strong grounding in decision theory.
+
+$$
+P(\textrm{activation}) = \frac{1}{1 + e^{-k(x - x\_{0})}}
+$$
+
+Those of you with a statistical or machine learning background will probably
+recognise this as the general form of the *sigmoid function*, which is used in
+(among other things) logistic regression and neural networks. The [Gaussian
+cumulative distribution
+function](https://en.wikipedia.org/wiki/Normal_distribution#Cumulative_distribution_function)
+is a special case of the logistic function, too. So, all in all, it's a pretty
+useful function; smooth, monotonic, integrable, and with strong roots in
+probability theory.
+
+![A plot of a particular instance of the logistic function, with the "optimal" x value shown in red.](/images/logistic.png)
+
+Anyhow - I wanted to maximise the probability of activation *per unit cost* (i.e. divided by *x*) - which simplifies to the following expression:
+
+$$
+\max{\frac{1}{x + xe^{-k(x - x\_{0})}}}
+$$
+
+This function has a slightly different shape to the logistic "S" shown above -
+this has a single peak at the optimal value for x, like so:
+
+![A chart of the function I was trying to optimise](/images/logistic-over-x.png)
+
+Note that as *x* tends towards zero, the function increases - but as it's
+nonsensical to have a reward of zero (or a negative reward), I applied a
+constraint to keep the x value *strictly positive*. Coercing the Apache Commons
+Math library into doing that was a little bit tricky and took a lot of trial
+and error, but here's my solution.
+
+## Constructing an objective function
+
+The objective function must take the form of a class that implements the
+[`MultivariateFunction`][4] interface - which requires a method called `value`
+- a method that accepts an array of `double` as a parameter, and returns the
+result of the function. Each element in the array corresponds to the
+dimensionality of the problem - so in this case, the array will only contain
+one element. Also, because I want to perform a *bounded* optimisation (i.e.
+restricting the solution to a range of positive real numbers), I have to wrap
+the objective function class in a [`MultivariateFunctionMappingAdapter`][5]
+that takes three arguments; the objective function class, a lower bound, and an
+upper bound. This adapter class is useful to us because it allows us to
+calculate *bounded* solutions to the problem. We'll refer back to this class
+later, because we'll use it to map a *unbounded* solution to a *bounded* one.
+Irritatingly, it's this unbounded/bounded mapping that took me a couple of
+hours to figure out; as far as I can tell, this functionality *isn't actually
+documented* - certainly, not well enough for a newcomer to figure it out.
+
+
+## Choosing an optimiser
+
+There are a multitude of different optimisation algorithms included in the
+Commons Math library - each with their own various parameter combinations and
+idiosyncrasies. Many of these algorithms (in the `gradient` package) require a
+function that is differentiable, which poses a little extra difficulty. I
+couldn't be bothered writing the functions to calculate the gradient and
+Hessian, so I just went for the simplest optimisation technique I could find -
+the [Nelder-Mead simplex method][1]. This is implemented in the
+[`NelderMeadSimplex`][2] class - which must then be wrapped in a
+[`SimplexOptimizer`][3], for reasons which are still unclear to me. The
+[`SimplexOptimizer`][3] class must be constructed with two `double` arguments,
+representing the precision with which the algorithm will converge - and the
+[`NelderMeadSimplex`][2] class requires a constructor argument that specifies
+the dimensionality of the problem.
+
+## Running the optimisation
+
+Once the framework was all set up and everything was prepared for the
+optimisation, it was simply a case of calling the `optimize` method in the
+[`SimplexOptimizer`][3] with a couple of extra parameters. Obviously, I had to
+provide the objective function and the optimiser, specify the goal type
+(maximisation, in this case), and I also had to provide two other arguments; an
+upper limit on the number of evaluations (`MaxEval(100)`), and a sensible
+initial guess.
+
+Picking an initial guess for an optimisation technique is as much of an art as
+it is a science, and I could probably write a few blog posts on that subject
+alone. Essentially, I wanted to pick a sensible point on the function -
+basically a part of the function with a reasonably high gradient (for faster
+convergence on gradient-descent-type methods) that was likely to be near the
+optimum. In this case, the centre of the logistic function was a pretty good
+starting point.
+
+```java
+ObjectiveFunction objective = new ObjectiveFunction(mfma);
+NelderMeadSimplex optimizer = new NelderMeadSimplex(1);
+SimplexOptimizer solv = new SimplexOptimizer(PRECISION, PRECISION);
+
+PointValuePair unboundedSolution = solv.optimize(
+	objective,
+	optimizer,
+	GoalType.MAXIMIZE,
+	new MaxEval(100),
+	new InitialGuess(new double[]{ this.centre })
+);
+```
+
+## Converting solution to a bounded space
+
+This wasn't particularly well-documented, and I spent a couple of hours
+scratching my head wondering why the optimisation algorithm was reporting
+*absolutely ridiculous* values for a bounded optimisation. It turns out that
+just wrapping the objective function in the
+[`MultivariateFunctionMappingAdapter`][5] class isn't quite enough - another
+method must be called to transform the *unbounded solution* returned by the
+optimisation function to the *bounded solution* that I was seeking. This is
+done by calling `mfma.unboundedToBounded(unboundedSolution.getFirst())`, where
+`mfma` is the [`MultivariateFunctionMappingAdapter`][5].
+
+## Putting it all together
+
+After much experimentation and various iterations to refine it, I constructed
+the following class - as you can probably tell the optimisation code is in the
+`estimateOptimalIncentive()` method. Whew. That was a lot of work for something
+that I could do in five lines of Python!
+
+```java
+public class Logistic implements MultivariateFunction {
+	private final double PRECISION = 1e-5;
+	private final double max;
+	private final double steepness;
+	private final double centre;
+	private final double optimalIncentive;
+
+	public Logistic() {
+		this.max = 1.0;
+		this.steepness = 1.0;
+		this.centre = 0.0;
+		this.optimalIncentive = this.estimateOptimalIncentive();
+	}
+
+	public Logistic(double max, double steepness, double centre) {
+		this.max = max;
+		this.steepness = steepness;
+		this.centre = centre;
+		this.optimalIncentive = this.estimateOptimalIncentive();
+	}
+
+	public double getMaxSensibleInputValue() {
+		return this.centre + 10.0;
+	}
+
+	public double getMinSensibleInputValue() {
+		return 0.0 + PRECISION;
+	}
+
+	public double estimateOptimalIncentive() {
+		MultivariateFunctionMappingAdapter mfma = new MultivariateFunctionMappingAdapter(
+			this,
+			new double[] {this.getMinSensibleInputValue()},
+			new double[] {this.getMaxSensibleInputValue()}
+		);
+
+		ObjectiveFunction objective = new ObjectiveFunction(mfma);
+		NelderMeadSimplex optimizer = new NelderMeadSimplex(1);
+		SimplexOptimizer solv = new SimplexOptimizer(PRECISION, PRECISION);
+
+		PointValuePair unboundedSolution = solv.optimize(
+			objective,
+			optimizer,
+			GoalType.MAXIMIZE,
+			new MaxEval(100),
+			new InitialGuess(new double[]{ this.centre })
+		);
+
+		return mfma.unboundedToBounded(unboundedSolution.getFirst())[0];
+	}
+
+	public double getOptimalIncentive() {
+		return this.optimalIncentive;
+	}
+
+	public double getActivationProbability(double incentive) {
+		// Logistic function = L / (E ^ -k (x - x0))
+		return max / (1 + exp(-steepness * (incentive - centre)));
+	}
+
+	@Override
+	public double value(double[] variables) {
+		double x = variables[0];
+		return getActivationProbability(x) / x;
+	}
+}
+```
+
+[1]: https://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method
+[2]: https://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/optim/nonlinear/scalar/noderiv/NelderMeadSimplex.html
+[3]: https://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/optim/linear/SimplexSolver.html
+[4]: http://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/analysis/MultivariateFunction.html
+[5]: https://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/optimization/direct/MultivariateFunctionMappingAdapter.html

@@ -1,0 +1,84 @@
+---
+layout: post
+title: Settling in at CERN
+date: 2015-07-25 15:18:28.000000000 +01:00
+---
+
+I've been quite lax about posting lately because I've been settling in to life
+in at CERN, and adjusting to living in France/Switzerland. The last couple of
+weeks have been really busy; among other things, I've been meeting and
+socialising with the other summer students (of which there are *a lot*),
+working on my projects, having technical meetings with my supervisor, and
+learning the layout of the CERN campus.
+
+<!-- more -->
+
+Much to my delight, I recently discovered that my office is above [Tim
+Berners-Lee's][1] old room in Building 31. This is really exciting, because
+Building 31 (31-2-012, to be exact) was where [Tim Berners-Lee][1] invented the
+World Wide Web and  wrote the code for the first web server. As well as being
+where the WWW was invented, Building 31 was where the very first web servers
+were kept. That means I'm working right next to a piece of Internet history,
+which is pretty damn cool.
+
+As I've been busy with learning the technologies involved with my projects,
+meeting people, going to lectures, and exploring Geneva and the surrounding
+areas, I haven't had time to write much of an interesting report (at least, not
+yet) - so instead of writing a monster blog post/technical report, I'll just
+post some pictures of the area and some of the things I've been doing in my
+free time.
+
+![The famous CERN globe](/images/cern-globe-sculpture.jpg)
+The famous CERN globe, just outside the main CERN campus
+
+![The view from my
+office](/images/cern-view-from-my-office.jpg) The view from my
+office (note the mountains in the background!)
+
+![The mountain that you can see from my
+office!](/images/cern-mont-saleve.jpg) The mountain you can see
+from my office (Mont Salève). Yes, I went up there.  Yes, I hiked down it. In
+the dark. No, I don't  recommend it.
+
+![The antimatter factory (antiproton decelerator) near my office
+building](/images/cern-antimatter-factory.jpg) The antimatter
+factory (antiproton decelerator) near my office building. This is mostly just
+because I found the name fascinating.
+
+![The rather impressive murals on the ATLAS
+building](/images/cern-atlas-experiment-building.jpg) The
+(rather impressive) murals on the outside of the ATLAS building - which was
+full of fairly tense-looking scientists on the inside.
+
+![The ATLAS control
+centre](/images/cern-atlas-experiment-control-centre.jpg) The
+ATLAS experiment control centre. Nobody was running around screaming, which I
+took to be a good sign :)
+
+![The plaque outside Tim Berners-Lee's old office on the second floor of
+Building 31](/images/cern-tim-berners-lee-office.jpg) The
+plaque outside Tim Berners-Lee's old office on the second floor of Building 31.
+
+![The main server room at
+CERN.](/images/cern-main-server-room.jpg) CERN's main
+datacentre in building 513 - there are *lots* of others but this is the most
+famous one.
+
+![My laptop looking rather fancy with its new CERN
+sticker](/images/cern-sticker-on-laptop.jpg) My laptop, adorned
+with a rather nice CERN sticker.
+
+![Lake Geneva in the evening, after I went sailing on
+it](/images/cern-geneva-lake.jpg) Lake Geneva, one evening -
+after I went sailing on it.
+
+Right - that's all for now. I should probably put in a quick note about my
+projects - among various other things, I've been doing some interesting stuff
+with Puppet, writing recipes to deploy various monitoring and metric-gathering
+utilities, including Elasticsearch/Logstash/Kibana and OpenTSDB/`tcollector`.
+I'll probably write another (lengthier) post about those things in the coming
+weeks.
+
+Salut!
+
+[1]: https://en.wikipedia.org/wiki/Tim_Berners-Lee

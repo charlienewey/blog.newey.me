@@ -1,0 +1,23 @@
+language: ruby
+rvm:
+  - 2.3.1
+
+before_script:
+  - chmod +x ./script/cibuild
+
+script: ./_script/cibuild
+
+# branch whitelist, only for GitHub Pages
+branches:
+  only:
+    - master       # test the master branch
+    - gh-pages     # test the gh-pages branch
+    - /pages-(.*)/ # test every branch which starts with "pages-"
+
+env:
+  global:
+    # speeds up installation of html-proofer
+    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+
+# uses faster container-based infrastructure
+sudo: false

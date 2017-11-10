@@ -1,0 +1,37 @@
+# Metadata
+title: ./backlog
+author: Charles Newey
+github_username: charlienewey
+email: charlie.newey@gmail.com
+url: "https://charlienewey.github.io"
+baseurl: ""
+description: >-
+  Notes on machine learning, stats, devops, and open-source software.
+
+# Build settings
+permalink: /:slug/  # default is: /:year/:month/:day/:slug/
+version: v1.2.0
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+sass:
+  style: :compressed
+plugins:
+  - jekyll-feed      # Create an Atom feed
+  - jekyll-seo-tag   # SEO tags
+  - jekyll-sitemap   # Create a sitemap
+
+# Staticman comments config
+comments: true
+repository: charlienewey/blog.newey.me
+branch: master
+
+# Exclude from processing (these are excluded by default).
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
