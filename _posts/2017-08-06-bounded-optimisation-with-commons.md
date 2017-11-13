@@ -232,7 +232,7 @@ public class Logistic implements MultivariateFunction {
 ```
 
 [1]: https://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method
-[2]: https://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/optim/nonlinear/scalar/noderiv/NelderMeadSimplex.html
-[3]: https://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/optim/linear/SimplexSolver.html
-[4]: http://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/analysis/MultivariateFunction.html
-[5]: https://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/org/apache/commons/math3/optimization/direct/MultivariateFunctionMappingAdapter.html
+[2]: https://github.com/apache/commons-math/blob/master/src/main/java/org/apache/commons/math4/optim/nonlinear/scalar/noderiv/NelderMeadSimplex.java
+[3]: https://github.com/apache/commons-math/blob/master/src/main/java/org/apache/commons/math4/optim/linear/SimplexSolver.java
+[4]: https://github.com/apache/commons-math/blob/master/src/main/java/org/apache/commons/math4/analysis/MultivariateFunction.java
+[5]: https://github.com/apache/commons-math/blob/master/src/main/java/org/apache/commons/math4/optim/nonlinear/scalar/MultivariateFunctionMappingAdapter.java
