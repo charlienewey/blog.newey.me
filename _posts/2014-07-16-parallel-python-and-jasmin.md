@@ -192,6 +192,5 @@ videos](http://www.youtube.com/watch?v=1coLC-MUCJc) on the topic.
 * [JASMIN](http://www.jasmin.ac.uk/)
 * [National Environment Research Council](http://www.nerc.ac.uk/)
 * [Centre for Environmental Data Archival](http://www.ceda.ac.uk/)
-* [British Atmospheric Data Centre](http://badc.nerc.ac.uk/)
 * [Python `multiprocessing` module](https://docs.python.org/2/library/multiprocessing.html)
 * [Python `asyncio` module](https://docs.python.org/3/library/asyncio.html)
