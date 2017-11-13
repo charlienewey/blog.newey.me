@@ -41,7 +41,7 @@ Python's `threading` module, and  using Python's `multiprocessing` module. In
 my last post, `multiprocessing` was the best option for running tasks in
 parallel, but I wonder if the outcome will be the same for more I/O intensive
 tasks... The scripts I used to perform this experiment are below, along with
-the [results](#results).
+the results.
 
 Serial/standard:
 ```language-python
@@ -134,8 +134,6 @@ for f in files:
 while len(multiprocessing.active_children()) > 0:
     time.sleep(1)
 ```
-
-<a name="results"></a>
 
 #### Results
 
