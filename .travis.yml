@@ -22,8 +22,8 @@ env:
 # uses faster container-based infrastructure
 sudo: false
 
-# update SSL certificate bundle
+# update SSL certificates
 addons:
   apt:
     packages:
-      - ca-certificates
+    - libcurl4-openssl-dev # required to avoid SSL errors
