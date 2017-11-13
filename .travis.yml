@@ -21,3 +21,9 @@ env:
 
 # uses faster container-based infrastructure
 sudo: false
+
+# update SSL certificate bundle
+addons:
+  apt:
+    packages:
+      - ca-certificates
