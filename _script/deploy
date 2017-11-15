@@ -1,3 +1,5 @@
 #! /bin/bash
 
+set -e
+
 rsync -e "ssh -o StrictHostKeyChecking=no" -a ./_site www-data@erebor.newey.me:/var/www/newey.me
