@@ -23,8 +23,9 @@ all of the sounds myself. I had complete control over the outcome of the
 project, and I think it's turned out well! A simple game, perhaps - but
 satisfying to play and pleasant to look at.
 
-If you're interested, please check it out!
-[https://newey.me/web/game](https://newey.me/web/game)
+If you're interested, [check it out on GitHub][1]!
+
+[1]: https://github.com/charlienewey/aber-ftw/tree/b1d3be72bd3cb9afa63534b83399208e2d88d9f1
 
 The source code is available [on GitHub,
 too.](https://github.com/charlienewey/aber-ftw)

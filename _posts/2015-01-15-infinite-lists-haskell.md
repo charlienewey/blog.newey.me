@@ -5,7 +5,7 @@ date: 2015-01-15 17:52:02.000000000 +00:00
 ---
 
 I've been tinkering a bit with learning Haskell at home, and it's been a
-surprisingly pleasant experience so far. Some nice things about it; 
+surprisingly pleasant experience so far. Some nice things about it;
 
 * Haskell is really terse (you don't need to write much to do complex things)
 * It's very expressive (Haskell code has a lot of information packed in)
@@ -22,7 +22,7 @@ One of my favourite features of Haskell so far is its lazy evaluation - which
 basically means that lots of listy stuff (list comprehensions, recursive list
 manipulation functions, etc) use internal mechanisms that somewhat resemble
 coroutines under the hood (which are [something I've touched upon
-before](https://blog.assemblyco.de/optimising-the-fibonacci-sequence-with-generators/)).
+before](https://blog.newey.me/optimising-the-fibonacci-sequence-with-generators/)).
 Basically, the Haskell compiler or interpreter puts off evaluating any
 expression until it absolutely HAS to.
 
