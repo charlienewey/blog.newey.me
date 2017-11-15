@@ -4,8 +4,11 @@ rvm:
 
 before_script:
   - chmod +x ./_script/cibuild
+  - chmod +x ./_script/deploy
 
 script: ./_script/cibuild
+
+after_script: ./_script/deploy
 
 # branch whitelist, only for GitHub Pages
 branches:
