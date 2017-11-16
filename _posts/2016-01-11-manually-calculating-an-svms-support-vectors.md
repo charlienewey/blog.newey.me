@@ -9,9 +9,9 @@ and [support vector
 machine](https://en.wikipedia.org/wiki/Support_vector_machine) concepts.
 
 Let's say that we have two sets of points, each corresponding to a different
-class. Let's call these classes *positive* and *negative* (but really they
-could be any binary class - *pink*, or *not pink*, *cucumber* or *not
-cucumber*, and so on).
+class. Let's call these classes *positive* and *negative* (but really they could
+be any binary class - *pink*, or *not pink*, *cucumber* or *not cucumber*, and
+so on).
 
 <!-- more -->
 
@@ -21,20 +21,24 @@ that your data is separable by a
 
 So, let's make up some input data:
 
-$$ positive = [(1, 1), (2, 2), (2, 0)] $$ $$ negative = [(0, 0), (1, 0), (0,
-1)] $$
+$$
+positive = [(1, 1), (2, 2), (2, 0)]
+$$
+
+$$
+negative = [(0, 0), (1, 0), (0, 1)]
+$$
 
 Let's say that we want to train a support vector machine on these input classes
 and then determine the *weight vector* of the optimal decision hyperplane
-("optimal decision hyperplane" is SVM-speak for "the line that separates the
-two input classes with the biggest distance between them" - this will become
-clear in a minute). The *weight vector* is simply a vector perpendicular to the
+("optimal decision hyperplane" is SVM-speak for "the line that separates the two
+input classes with the biggest distance between them" - this will become clear
+in a minute). The *weight vector* is simply a vector perpendicular to the
 optimal decision hyperplane.
 
 Let's plot our points.
 
-![A simple scatter plot of our
-classes.](/images/points-on-chart.png)
+![A simple scatter plot of our classes.](/images/points-on-chart.png)
 
 Are they linearly separable? (Yes, they are). Let's draw the positive and
 negative canonical hyperplanes, and then fit our optimal decision hyperplane.
@@ -59,58 +63,89 @@ know what we're looking for, let's go ahead and figure it out.
 
 We know that the equation of a line in an SVM follows these constraints;
 
-$$ w\_1 x + w\_2 y + w\_3 = 0 $$
+$$
+w_1 x + w_2 y + w_3 = 0
+$$
 
 Our weight vector is composed of *w1* and *w2*. If we examine our positive and
-negative canonical hyperplanes, we can see that there are two points that lie
-on each. These are the basis for our *support vectors* - the vectors that allow
-the SVM classifier to decide on the optimal decision hyperplane.
+negative canonical hyperplanes, we can see that there are two points that lie on
+each. These are the basis for our *support vectors* - the vectors that allow the
+SVM classifier to decide on the optimal decision hyperplane.
 
-$$ supportVectors\_{positive} = [(1, 1), (2, 0)] $$ $$
-supportVectors\_{negative} = [(1, 0), (0, 1)] $$
+$$
+supportVectors_{positive} = [(1, 1), (2, 0)]
+$$
+
+$$
+supportVectors_{negative} = [(1, 0), (0, 1)]
+$$
 
 So, we can plug these points into our line equation, and solve linearly for
 *w1*, *w2*, and *w3*. Note that the *positive* examples are denoted with a sum
-of *1*, and the *negative* examples are denoted with a sum of *-1*. This is
-just SVM convention (it's arbitrary but it works).
+of *1*, and the *negative* examples are denoted with a sum of *-1*. This is just
+SVM convention (it's arbitrary but it works).
 
-$$ pos\_{1} = 1w\_{1} + 1w\_{2} + w\_{3} = 1 $$ $$ pos\_{2} = 0w\_{1} + 2w\_{2}
-+ w\_{3} = 1 $$
+$$
+pos_{1} = 1w_{1} + 1w_{2} + w_{3} = 1
+$$
 
-$$ neg\_{1} = 1w\_{1} + 0w\_{2} + w\_{3} = -1 $$ $$ neg\_{2} = 0w\_{1} +
-1w\_{2} + w\_{3} = -1 $$
+$$
+pos_{2} = 0w_{1} + 2w_{2} + w_{3} = 1
+$$
+
+$$
+neg_{1} = 1w_{1} + 0w_{2} + w_{3} = -1
+$$
+
+$$
+neg_{2} = 0w_{1} + 1w_{2} + w_{3} = -1
+$$
 
 We can try to solve this by subtracting *neg1* from *pos1*. The *w3* and *w1*
 terms cancel out leaving us with...
 
-$$ pos\_{1} - neg\_{1} \implies w\_{2} = 2 $$
+$$
+pos_{1} - neg_{1} \implies w_{2} = 2
+$$
 
 We can now substitute the value for *w2* into *neg2*...
 
-$$ 2 + w\_{3} = -1 \implies w\_{3} = -3 $$
+$$
+2 + w_{3} = -1 \implies w_{3} = -3
+$$
 
 We can now substitute the values for *w2* and *w3* into *pos1*...
 
-$$ w\_{1} + 2 - 3 = 1 \implies w\_{1} - 1 = 1 \implies w\_{1} = 2 $$
+$$
+w_{1} + 2 - 3 = 1 \implies w_{1} - 1 = 1 \implies w_{1} = 2
+$$
 
 This gives us our new line equation - which can be simplified down to...
 
-$$ 2x + 2y - 3 = 0 \implies x + y + \frac{3}{2} = 0 $$
+$$
+2x + 2y - 3 = 0 \implies x + y + \frac{3}{2} = 0
+$$
 
 This implies that our vector passes through *(0, 0)* and *(1, 1)*, because the
 coefficients of *x* and *y* (the weight vector components) are 1. Note that you
 don't *need* to divide the line equation by 2, as above. Using *(1, 1)* or *(2,
-2)* for the weight vector components are both perfectly sensible answers
-because the weight vector is *normal* to the optimal decision hyperplane - that
-is, it simply encodes a *direction*.
+2)* for the weight vector components are both perfectly sensible answers because
+the weight vector is *normal* to the optimal decision hyperplane - that is, it
+simply encodes a *direction*.
 
-So we now have the components of our SVM weight vector. The SVM weight vector
-is comprised of *w1* and *w2*, so....
+So we now have the components of our SVM weight vector. The SVM weight vector is
+comprised of *w1* and *w2*, so....
 
-$$ w = \begin{bmatrix} w\_{1} \\\\ w\_{2} \\\\ \end{bmatrix} \implies
-\begin{bmatrix} 1 \\\\ 1 \\\\ \end{bmatrix} $$
+$$
+w =
+\begin{bmatrix}
+w_{1} \\\\ w_{2} \\\\
+\end{bmatrix} \implies
+\begin{bmatrix}
+1 \\\\ 1 \\\\
+\end{bmatrix}
+$$
 
 And you're done. Does this fit with what we predicted earlier? (Yes, it does).
 
-![Plot of the calculated weight
-vector.](/images/weight-vector-arrow.png)
+![Plot of the calculated weight vector.](/images/weight-vector-arrow.png)
