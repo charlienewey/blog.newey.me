@@ -45,7 +45,7 @@ in this case, I've chosen the logistic function (see below) because it's got a
 pretty strong grounding in decision theory.
 
 $$
-P(\textrm{activation}) = \frac{1}{1 + e^{-k(x - x\_{0})}}
+P(\textrm{activation}) = \frac{1}{1 + e^{-k(x - x_{0})}}
 $$
 
 Those of you with a statistical or machine learning background will probably
