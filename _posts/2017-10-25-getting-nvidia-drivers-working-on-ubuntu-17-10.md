@@ -4,13 +4,13 @@ title: Getting NVIDIA drivers working on Ubuntu 17.10
 date: 2017-10-25 11:08:58.000000000 +01:00
 ---
 
-Recently, I foolishly upgraded my system from Ubuntu 17.04 (a nice, stable
-distribution) to 17.10 (a fragile nightmare with very little hardware support).
-This broke... well, a lot of things. However, the main problem was that my
-NVIDIA graphics drivers were causing the system to fail to boot. I spent a
-frustratingly-long time trying to fix this problem on my work machine (NVIDIA
-1050Ti graphics card), but I think I've finally cracked it. Here's how I did
-it; hopefully it can help others, too.
+I recently upgraded my system from Ubuntu 17.04 (a nice, stable distribution) to
+17.10 (a fragile nightmare with very little hardware support).  This broke...
+well, a lot of things. However, the main problem was that my NVIDIA graphics
+drivers were causing the system to fail to boot. I spent a frustratingly-long
+time trying to fix this problem on my work machine (NVIDIA 1050Ti graphics
+card), but I think I've finally cracked it. Here's how I did it; hopefully it
+can help others, too.
 
 <!-- more -->
 
