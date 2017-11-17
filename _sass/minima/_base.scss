@@ -130,6 +130,14 @@ blockquote {
   }
 }
 
+div .footnote:before {
+    content: "[";
+}
+
+div .footnote:after {
+    content: "]";
+}
+
 
 
 /**
