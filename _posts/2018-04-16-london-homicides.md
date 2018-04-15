@@ -1,21 +1,24 @@
 ---
 layout: post
-title: Just how likely *are* you to get murdered in London?
+title: Just how bad is London's homicide rate?
 date: 2018-04-16 00:09:55.000000000 +01:00
 ---
 
-There's been a lot in the news lately about the supposedly "soaring" murder rate
-in London, and how it has supposedly eclipsed that of New York City in recent
-months. I was initially sceptical as this fact seemed fairly mundane --- 50
-homicides in 3-and-a-bit months didn't seem all that unlikely. However, I wanted
-put my scepticism under some proper scrutiny --- so I acquired a couple of
-datasets from the [London Datastore][data].
+There's been [a lot][std] [in the news lately][bbc] about the supposedly
+"soaring" murder rate in London, and how it has supposedly eclipsed that of New
+York City in recent months. I was initially sceptical as this fact seemed fairly
+mundane --- 50 homicides in 3-and-a-bit months didn't seem all that unlikely.
+However, I wanted put my scepticism under some proper scrutiny --- so I acquired
+a couple of datasets from the [London Datastore][data].
+
+[std]: https://www.standard.co.uk/news/crime/the-55-murder-investigations-launched-in-london-this-year-as-death-toll-continues-to-rise-a3807186.html
+[bbc]: http://www.bbc.co.uk/news/uk-england-london-43610936
 
 <!-- more -->
 
 # How is the data distributed?
 
-![Distribution plot of data](/images/cdf_ecdf.png)
+![Distribution plot of data](/images/distribution_kde.png)
 
 With the data being homicide **counts** per month, it seems probable that the
 data are generated according to an exponential model (or, at least, something
@@ -63,7 +66,7 @@ to see if we can discover any useful information.
 
 # What are the parameters of this distribution?
 
-![Poisson CDF of data](/images/distribution_kde.png)
+![Poisson CDF of data](/images/cdf_ecdf.png)
 
 This chart shows the empirical cumulative distribution for the homicide data -
 this simply fits a step function to the data based on the observed probability
