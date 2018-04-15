@@ -427,4 +427,4 @@ References
 ==========
 
 * [GitLab official installation guide](https://github.com/gitlabhq/gitlabhq/blob/7-6-stable/doc/install/installation.md)
-* [Luiz Gustavo's GitLab/FreeBSD guide (Portuguese)](http://www.luizgustavo.pro.br/blog/2014/08/21/instalacao-gitlab-no-freebsd/)
+* [Luiz Gustavo's GitLab/FreeBSD guide (Portuguese)](https://web.archive.org/web/20160312112543/http://www.luizgustavo.pro.br/blog/2014/08/21/instalacao-gitlab-no-freebsd)
