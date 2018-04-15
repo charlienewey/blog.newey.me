@@ -8,11 +8,13 @@ There's been [a lot][std] [in the news lately][bbc] about the supposedly
 "soaring" murder rate in London, and how it has supposedly eclipsed that of New
 York City in recent months. I was initially sceptical as this fact seemed fairly
 mundane --- 50 homicides in 3-and-a-bit months didn't seem all that unlikely.
-However, I wanted put my scepticism under some proper scrutiny --- so I acquired
-a couple of datasets from the [London Datastore][data].
+However, I wanted put my scepticism to the test --- so I acquired a couple of
+datasets from the [London Datastore][data] to see if the hyper-sensationalised
+news articles were justified or not.
 
 [std]: https://www.standard.co.uk/news/crime/the-55-murder-investigations-launched-in-london-this-year-as-death-toll-continues-to-rise-a3807186.html
 [bbc]: http://www.bbc.co.uk/news/uk-england-london-43610936
+[data]: https://data.london.gov.uk/dataset/recorded_crime_associated
 
 <!-- more -->
 
@@ -48,7 +50,6 @@ p = 0.18, therefore can't reject null hypothesis
 The final test we'll use is the Anderson-Darling. This is very similar to the
 Kolmogorov-Smirnov test, but places greater emphasis on the distribution's
 tails.
-
 
 ```
 A² = 0.87
@@ -131,7 +132,6 @@ different approach. Let's count the number of homicides *per three month period*
 between 2008 and 2017, and see if it's possible to find any particular
 three-month periods with over $46$ homicides.
 
-
 It turns out that the probability of $46$ homicides in any three-month period is
 about $1.6\times10^{-3}$ - or about $\frac{1}{625}$. Given that there are
 *twelve* possible rolling three-month periods in a year (think about it;
@@ -142,7 +142,6 @@ will occur in a given year.
 Another way to put this is that this phenomenon is likely to occur once every
 $52$ or so years. Very uncommon, but not altogether unexpected every once in a
 while.
-
 
 ```
 Three-month period: p(x >= 46) = 0.0016
