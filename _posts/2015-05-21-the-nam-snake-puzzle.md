@@ -57,5 +57,5 @@ for solution in filter(nam, perms):
 ```
 
 
-[1]: http://www.theguardian.com/science/alexs-adventures-in-numberland/2015/may/20/can-you-do-the-maths-puzzle-for-vietnamese-eight-year-olds-that-has-stumped-parents-and-teachers
+[1]: http://web.archive.org/web/20180115030541/https://www.theguardian.com/science/alexs-adventures-in-numberland/2015/may/20/can-you-do-the-maths-puzzle-for-vietnamese-eight-year-olds-that-has-stumped-parents-and-teachers
 [2]: https://projecteuler.net
