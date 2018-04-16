@@ -124,8 +124,8 @@ only takes into account the probability of  months with only $15.3$ or more
 homicides... Whereas in reality a count of $46$ homicides per 3 month period
 could be composed of one month with $17$ homicides, one with $18$, and one with
 $11$. Actually, this is exactly what happened in London at the beginning of 2018
-- there were $11$ homicides in January, $15$ in February, and $20$ in March; for
-a total of $46$.
+--- there were $11$ homicides in January, $15$ in February, and $20$ in March;
+for a total of $46$.
 
 This eventuality wouldn't be accounted for in the model above, so let's try a
 different approach. Let's count the number of homicides *per three month period*
