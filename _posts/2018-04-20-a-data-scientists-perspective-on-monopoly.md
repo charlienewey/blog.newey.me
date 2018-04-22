@@ -408,7 +408,7 @@ It appears that the stations are on top, followed by the utilities, and the red,
 orange, and green properties. Note that the stations come out on top here
 because there are four of them!
 
-![Best value property groups](best-value-groups.png)
+![Best value property groups](/images/best-value-groups.png)
 
 
 ## What is the best improvement strategy?
