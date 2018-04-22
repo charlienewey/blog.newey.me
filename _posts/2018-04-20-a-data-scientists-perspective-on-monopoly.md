@@ -51,27 +51,15 @@ these things have been plotted below.
 d1 = np.random.randint(low=1, high=7, size=10000)
 d2 = np.random.randint(low=1, high=7, size=10000)
 
-# plot figures
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 5))
-
 # plot a histogram
 rolls = np.arange(2, 13)
-ax1.set_xticks(rolls)
-ax1.hist(d1 + d2, bins=np.arange(1, 13) + 0.5, normed=True)
-ax1.set_title("Simulation of 10,000 rolls")
-ax1.set_xlabel("Roll")
-ax1.set_ylabel("Frequency")
-ax1.set_ylim(0, 1.0 / 6.0)
+plt.hist(d1 + d2, bins=np.arange(1, 13) + 0.5, normed=True)
 
 # show the same thing using combinatorics
 dice = [1, 2, 3, 4, 5, 6]
 throws = list(itertools.product(dice, dice))
 combos = [sum([len(throw) for throw in throws if sum(throw) == i]) for i in rolls]
-ax2.set_title("Dice roll combinations")
-ax2.set_ylabel("Number of Combinations")
-ax2.set_xticks(rolls)
-ax2.set_xlabel("Roll")
-ax2.bar(left=rolls-0.5, height=combos, width=1)
+plt.bar(left=rolls-0.5, height=combos, width=1)
 ```
 
 ![The binomial distribution resulting from two dice.](/images/binomial-dice.png)
