@@ -21,11 +21,6 @@ plugins:
   - jekyll-seo-tag   # SEO tags
   - jekyll-sitemap   # Create a sitemap
 
-# Staticman comments config
-comments: true
-repository: charlienewey/blog.newey.me
-branch: master
-
 # Exclude from processing (these are excluded by default).
 # exclude:
 #   - Gemfile
