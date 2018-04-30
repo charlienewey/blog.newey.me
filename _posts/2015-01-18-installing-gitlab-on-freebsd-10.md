@@ -403,7 +403,6 @@ mkfifo /var/spool/postfix/public/pickup
 killall $(pgrep sendmail) # Kill all sendmail processes
 sudo service postfix restart # Restart Postfix
 ```
-[(Source)](http://www.databasically.com/2009/12/02/ubuntu-postfix-error-postdrop-warning-unable-to-look-up-publicpickup-no-such-file-or-directory/)
 
 
 Unicorn / nginx: "Failed to set accept\_filter=httpready"
