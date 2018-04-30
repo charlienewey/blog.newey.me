@@ -1,12 +1,13 @@
 # Metadata
-title: ./backlog
-author: Charles Newey
-github_username: charlienewey
-email: charlie.newey@gmail.com
+title: "./backlog: Charlie's blog"
+author: "Charles Newey"
+github_username: "charlienewey"
+email: "charlie.newey@gmail.com"
 url: "https://charlienewey.github.io"
 baseurl: ""
 description: >-
-  Notes on machine learning, stats, devops, and open-source software.
+  perambulations through the world of data science
+comments: true
 
 # Build settings
 permalink: /:slug/  # default is: /:year/:month/:day/:slug/
