@@ -65,18 +65,31 @@ Using Gauss' formula, area of this triangle is computed like so;
   of the vector*)
 
 Adding all of these areas together gives and dividing by two results in an area
-of $7.5$. We can verify this quite easily - $\frac{1}{2} (5 \times 3) = 7.5$.
+of $7.5$. We can verify this quite easily: $\frac{1}{2} (5 \times 3) = 7.5$.
 This is a bit over-complicated for a triangle - but this method works just as
 well on polygons with an arbitrary number of sides! *"But wait"*, I hear you
-say, *"you can't have a negative area!"*
+say, *"you can't have a negative area!"*. The answer to that question is easy -
+the quantity $(x_{n-1}y_{n}) - (x_{n}y_{n-1})$ simply describes the rectangle
+that has one particular vertex at its *top right*, and another at its *bottom
+left*.
+
+For the right-angled triangle shown above, the area given by $(x_{n-1}y_{n}) -
+(x_{n}y_{n-1})$ defines the rectangle with vertex $b$ at its lower left, and
+vertex $d$ at its upper right. Dividing this area by two gives the area of
+triangle $abc$.
+
+So what about a more complex polygon? The same procedure applies, but the key
+difference is that it gets broken up into right-angled triangles first!
+
+![A quadrilateral broken up into right-angled
+triangles](/images/complex-polygon.png)
 
 ---
 
-So now you hopefully understand the derivation of the formula and how it works.
-It's marvellously compact for (what I consider to be) such a neat piece of
-geometric reasoning. Interestingly, when implementing this in a programming
-language that supports vectorisation, it boils down to just four lines of
-code...
+So there we have it - now you have an understanding of how Gauss' shoelace
+formula works. It's marvellously compact for (what I consider to be) such a neat
+piece of geometric reasoning. When implementing this in a programming language
+that supports vectorisation, it boils down to just four lines of code...
 
 ```python
 # See https://stackoverflow.com/a/49129646/2321244
@@ -86,4 +99,5 @@ def shoelace(xs, ys):
     return np.abs(main_area + correction) / 2
 ```
 
-...and runs in mere microseconds.
+...and runs in mere microseconds. Fantastic really, considering that Gauss died
+over 150 years ago.
