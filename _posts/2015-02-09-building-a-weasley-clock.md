@@ -36,8 +36,8 @@ There are several parts that make up the clock;
 * To control the servo that moves the hand, I used a [Spark
   Core](https://www.spark.io/) - a small, wireless-enabled embedded computing
   device that's compatible with [Arduino](https://arduino.cc/) code.
-* To track my location,  I used the [OpenPaths](https://openpaths.cc) location
-  API - which I linked with my mobile phone.
+* To track my location,  I used the [OpenPaths](http://archive.is/SuZCi)
+  location API - which I linked with my mobile phone.
 * To tie it all togetherI wrote some Python code to sit on my web server that
   regularly fetches my OpenPaths data, checks proximity using a [Great Circle
   Distance](http://en.wikipedia.org/wiki/Great-circle_distance) function, and

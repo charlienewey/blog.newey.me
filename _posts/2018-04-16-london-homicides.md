@@ -14,7 +14,7 @@ news articles were justified or not.
 
 [std]: https://www.standard.co.uk/news/crime/the-55-murder-investigations-launched-in-london-this-year-as-death-toll-continues-to-rise-a3807186.html
 [bbc]: http://www.bbc.co.uk/news/uk-england-london-43610936
-[data]: https://data.london.gov.uk/dataset/recorded_crime_associated
+[data]: http://archive.is/APgSj
 
 <!-- more -->
 
