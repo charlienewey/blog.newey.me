@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Gauss' Shoelace formula
+title: Gauss' shoelace formula
 ---
 
 There's a useful trick I learned the other day while working some geospatial
