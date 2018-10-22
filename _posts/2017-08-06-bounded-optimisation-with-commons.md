@@ -44,6 +44,8 @@ take the form of *any* well-behaved (i.e. smooth) and monotonic function, but
 in this case, I've chosen the logistic function (see below) because it's got a
 pretty strong grounding in decision theory.
 
+{% katexmm %}
+
 $$
 P(\textrm{activation}) = \frac{1}{1 + e^{-k(x - x_{0})}}
 $$
@@ -64,6 +66,8 @@ Anyhow - I wanted to maximise the probability of activation *per unit cost* (i.e
 $$
 \max{\frac{1}{x + xe^{-k(x - x\_{0})}}}
 $$
+
+{% endkatexmm %}
 
 This function has a slightly different shape to the logistic "S" shown above -
 this has a single peak at the optimal value for x, like so:

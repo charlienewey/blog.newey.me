@@ -4,6 +4,8 @@ title: Just how bad is London's homicide rate?
 date: 2018-04-16 00:09:55.000000000 +01:00
 ---
 
+{% katexmm %}
+
 There's been [a lot][std] [in the news lately][bbc] about the supposedly
 "soaring" murder rate in London, and how it has supposedly eclipsed that of New
 York City in recent months. I was initially sceptical as this fact seemed fairly
@@ -157,3 +159,5 @@ phenomenon.
 My bet? We'll see a regression to the mean over the next month or two and this
 won't be mentioned in the media for another $52$ years (or thereabouts!) - after
 all, it's probably just statistical noise.
+
+{% endkatexmm %}

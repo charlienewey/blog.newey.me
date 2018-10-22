@@ -15,6 +15,8 @@ so on).
 
 <!-- more -->
 
+{% katexmm %}
+
 For simplicity, I'm assuming two dimensions, but really the only requirement is
 that your data is separable by a
 [hyperplane](https://en.wikipedia.org/wiki/Hyperplane).
@@ -145,6 +147,8 @@ w_{1} \\\\ w_{2} \\\\
 1 \\\\ 1 \\\\
 \end{bmatrix}
 $$
+
+{% endkatexmm %}
 
 And you're done. Does this fit with what we predicted earlier? (Yes, it does).
 

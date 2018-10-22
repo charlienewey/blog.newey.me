@@ -18,9 +18,17 @@ kramdown:
 sass:
   style: :compressed
 plugins:
+  - jekyll-katex     # Maths rendering
   - jekyll-feed      # Create an Atom feed
   - jekyll-seo-tag   # SEO tags
   - jekyll-sitemap   # Create a sitemap
+paginate: 10
+paginate_path: "/page/:num/"
+
+katex:
+  rendering_options:
+    throw_error: true
+    error_color: "#cc0000"
 
 # Exclude from processing (these are excluded by default).
 # exclude:

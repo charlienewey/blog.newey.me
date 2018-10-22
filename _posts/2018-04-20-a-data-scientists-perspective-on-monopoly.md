@@ -4,6 +4,8 @@ title: Monopoly; a data scientist's perspective
 date: 2018-04-20 00:55:00.000000000 +01:00
 ---
 
+{% katexmm %}
+
 Monopoly is a wonderful game. It's one that gets wheeled out at every family
 gathering (usually Christmas, in my case), and gets half-heartedly played for a
 couple of hours - until everyone either gets bored and wanders off, or until
@@ -465,3 +467,5 @@ I'm joking - sort of. Here's what we learned;
 * Based on these probabilities, we calculated the optimal properties to purchase
 * We also computed the best ways to improve each of these properties, and how
   these might fit in with your own strategy
+
+{% endkatexmm %}

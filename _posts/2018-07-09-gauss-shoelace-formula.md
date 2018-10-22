@@ -3,6 +3,8 @@ layout: post
 title: Gauss' shoelace formula
 ---
 
+{% katexmm %}
+
 There's a useful trick I learned the other day while working some geospatial
 data. I needed to compute the areas of millions of polygons very quickly - which
 initially looked like a fairly daunting task. It turns out that there's a very
@@ -80,6 +82,8 @@ triangle $abc$.
 
 So what about a more complex polygon? The same procedure applies, but the key
 difference is that it gets broken up into right-angled triangles first!
+
+{% endkatexmm %}
 
 ![A quadrilateral broken up into right-angled
 triangles](/images/complex-polygon.png)
