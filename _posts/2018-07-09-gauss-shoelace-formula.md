@@ -3,14 +3,14 @@ layout: post
 title: Gauss' shoelace formula
 ---
 
-{% katexmm %}
-
 There's a useful trick I learned the other day while working some geospatial
 data. I needed to compute the areas of millions of polygons very quickly - which
 initially looked like a fairly daunting task. It turns out that there's a very
 fast and efficient method developed by Gauss that was designed for computing the
 area of any simple polygon (a *simple* polygon is a closed-path flat shape
 consisting of non-intersecting line segments - i.e. no curves and no overlaps).
+
+<!-- more -->
 
 It's called the *shoelace formula* (for reasons that will become clear later),
 and it's ridiculously simple and strangely satisfying to understand.  Given a
@@ -29,6 +29,8 @@ smaller, easier problems - and solving those instead.
 
 Here's how it works. For the sake of simplicity, let's start with a
 common-or-garden right-angled triangle.
+
+{% katexmm %}
 
 ![A simple right-angled triangle](/images/right-angled-triangle.png)
 
