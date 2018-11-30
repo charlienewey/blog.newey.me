@@ -21,7 +21,11 @@ effortlessly to massively parallel architectures.
 OK, so first off let's start with a recap of our good ol' buddy gradient
 descent. Remember linear regression? Minimising mean squared error? Mmkay,
 good. In case your memory is a little fuzzy (like mine), let's look at the
-objective function for a linear regression.
+objective function for a linear regression (with a grateful nod to Cosma
+Shalizi's excellent lecture notes on this topic[^1]).
+
+
+### An example with Linear Regression
 
 In this case, our learning problem has $m$ examples and $n$ features. Let's
 define some things up front, so that our objective function makes sense to
@@ -38,7 +42,7 @@ read.
 In this case, the objective function can be phrased as follows;
 
 $$
-f(\theta) = \frac{1}{2m} (y - \theta^{T}X)^{2}
+f(\theta) = \frac{1}{2m} (y - \theta^{T}X)^{T}(y - \theta^{T}X)
 $$
 
 Note that sometimes machine learning practitioners divide this function by a
@@ -53,15 +57,24 @@ on taking a number of small steps "downhill" by iteratively updating $\theta$
 by nudging the weights in the direction that minimises the objective. By taking
 enough steps this way, we will eventually arrive at an optimum.
 
-Let's compute the derivative for this objective function - once we've done
-that, we can start stepping down the hill.
-
 One thing to note here is that the linear regression objective function is
 quadratic (like the one pictured below). It is therefore convex and has a
 single global optimum --- this isn't always the case with more complex
 functions.
 
 ![A quadratic function (like this) has a single global optimum.](/images/objective-function.png)
+
+Let's compute the derivative for this objective function - once we've done
+that, we can start stepping down the hill.
+
+$$
+\begin{aligned}
+\frac{\partial}{\partial \theta} J(\theta)
+    & = \frac{\partial}{\partial \theta} \frac{1}{2m} (y - \theta^{T}X)^{2} \\
+    & = \frac{1}{m} \cdot \frac{\partial}{\partial \theta} (y - \theta^{T}X) \\
+    & = - \frac{1}{m} X^{T}(\theta^{T}X)
+\end{aligned}
+$$
 
 
 ## Batch GD, Mini-Batch GD, SGD?
@@ -93,6 +106,7 @@ functions.
 {% endkatexmm %}
 
 
+[^1]: [Simple Linear Regression in Matrix Format][9]
 [1]: http://archive.today/2018.11.28-102444/http://deeplearning.stanford.edu/tutorial/supervised/OptimizationStochasticGradientDescent
 [2]: http://ufldl.stanford.edu/tutorial
 [3]: http://archive.today/2018.11.28-102300/https://towardsdatascience.com/difference-between-batch-gradient-descent-and-stochastic-gradient-descent-1187f1291aa1?gi=98a30d7be394
@@ -101,3 +115,4 @@ functions.
 [6]: https://ml-cheatsheet.readthedocs.io/en/latest/gradient_descent.html
 [7]: https://web.archive.org/web/20170125203645/https://istcolloq.gsfc.nasa.gov/fall2009/presentations/bottou.pdf
 [8]: https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier.decision_function
+[9]: https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/13/lecture-13.pdf
