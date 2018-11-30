@@ -106,7 +106,7 @@ $$
 {% endkatexmm %}
 
 
-[^1]: [Simple Linear Regression in Matrix Format][9]
+[^1]: [Simple Linear Regression in Matrix Format; Cosma Shalizi (2015)][9]
 [1]: http://archive.today/2018.11.28-102444/http://deeplearning.stanford.edu/tutorial/supervised/OptimizationStochasticGradientDescent
 [2]: http://ufldl.stanford.edu/tutorial
 [3]: http://archive.today/2018.11.28-102300/https://towardsdatascience.com/difference-between-batch-gradient-descent-and-stochastic-gradient-descent-1187f1291aa1?gi=98a30d7be394
