@@ -82,10 +82,10 @@ For the right-angled triangle shown above, the area given by $(x_{n-1}y_{n}) -
 vertex $d$ at its upper right. Dividing this area by two gives the area of
 triangle $abc$.
 
+{% endkatexmm %}
+
 So what about a more complex polygon? The same procedure applies, but the key
 difference is that it gets broken up into right-angled triangles first!
-
-{% endkatexmm %}
 
 ![A quadrilateral broken up into right-angled
 triangles](/images/complex-polygon.png)

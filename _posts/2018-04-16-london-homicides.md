@@ -18,8 +18,6 @@ news articles were justified or not.
 
 <!-- more -->
 
-{% katexmm %}
-
 # How is the data distributed?
 
 ![Distribution plot of data](/images/distribution_kde.png)
@@ -31,7 +29,7 @@ diligence, let's see if the data comes from a normal distribution. We'll use the
 Shapiro-Wilks, D'Agostino-Pearson, and Anderson-Darling tests for this.
 
 The Shapiro-Wilks test appears to suggest that we can **reject** the null
-hypothesis with a reasonable level of confidence at $p = 0.018$ (the null
+hypothesis with a reasonable level of confidence at `p = 0.018` (the null
 hypothesis being that the data are distributed normally). This implies that
 there is a reasonable probability that the data are not from a normal
 distribution (as we expected).
@@ -71,12 +69,16 @@ to see if we can discover any useful information.
 
 ![Poisson CDF of data](/images/cdf_ecdf.png)
 
+{% katexmm %}
+
 This chart shows the empirical cumulative distribution for the homicide data -
 this simply fits a step function to the data based on the observed probability
 of each value. Plotted next to it is the cumulative distribution function for
 the Poisson distribution that was estimated using maximum likelihood (i.e.
-$\lambda = \mu$, the mean of the homicide data). With a p-value of $0.42$, it
+$\lambda = \mu$, the mean of the homicide data). With a p-value of 0.42, it
 seems very possible that the observed data come from a Poisson distribution.
+
+{% endkatexmm %}
 
 ```
 χ2 = 15.438520075519012, p = 0.4203150760901015
@@ -88,7 +90,7 @@ seems very possible that the observed data come from a Poisson distribution.
 Now that we've characterised our distribution as something sensible, let's see
 if the current reported figures for homicides are *really that unlikely*. The
 headline figure that most news media sources have been touting tends to be along
-the lines of "$50$ murders in London in the first 3 months of 2018", or "soaring
+the lines of "50 murders in London in the first 3 months of 2018", or "soaring
 murder rates in the capital" and so on. Actually (as can probably be expected),
 these headlines aren't quite right, and the reality of the situation is a little
 bit less dramatic - but *only a little bit*.
@@ -100,17 +102,21 @@ manslaughter, murder, and so on. So it's not necessarily all about murders - but
 of course, we're splitting hairs here.
 
 Linguistic nit-picking aside, the most interesting insights come from looking at
-the raw data. According to [this article from the BBC][1], $46$ homicides
+the raw data. According to [this article from the BBC][1], 46 homicides
 happened in London between 00:00 on January 1st, 2018 and 23:59 on March 31st,
 2018. Most news media have reported on $50$ being the key figure simply because
 it's a round number.
 
+{% katexmm %}
+
 46 homicides in 3 months implies an average count of $\frac{46}{3} \approx 15.3$
 per month. For there to be 46 homicides in 3 months, this implies 3 consecutive
 months of $15.3$ homicides (or more). Crunching the numbers gives us a
-probability of $\approx 0.043$ - or about $1$ in $25$. The probability of this
+probability of $\approx 0.043$ - or about 1 in 25. The probability of this
 occurring for three consecutive months is extremely low - in fact, this will
-only happen once in about every $1041$ years.
+only happen once in about every 1041 years.
+
+{% endkatexmm %}
 
 [1]: http://www.bbc.co.uk/news/uk-43640475
 
@@ -122,27 +128,31 @@ which would happen every 1041.02 years on average.
 ```
 
 However, this perhaps isn't the best way of working this out. The model above
-only takes into account the probability of  months with only $15.3$ or more
-homicides... Whereas in reality a count of $46$ homicides per 3 month period
-could be composed of one month with $17$ homicides, one with $18$, and one with
-$11$. Actually, this is exactly what happened in London at the beginning of 2018
---- there were $11$ homicides in January, $15$ in February, and $20$ in March;
-for a total of $46$.
+only takes into account the probability of months with only 15.3 or more
+homicides... Whereas in reality a count of 46 homicides per 3 month period
+could be composed of one month with 17 homicides, one with 18, and one with
+11. Actually, this is exactly what happened in London at the beginning of 2018
+--- there were 11 homicides in January, 15 in February, and 20 in March;
+for a total of 46.
 
 This eventuality wouldn't be accounted for in the model above, so let's try a
 different approach. Let's count the number of homicides *per three month period*
 between 2008 and 2017, and see if it's possible to find any particular
-three-month periods with over $46$ homicides.
+three-month periods with over 46 homicides.
 
-It turns out that the probability of $46$ homicides in any three-month period is
+{% katexmm %}
+
+It turns out that the probability of 46 homicides in any three-month period is
 about $1.6\times10^{-3}$ - or about $\frac{1}{625}$. Given that there are
 *twelve* possible rolling three-month periods in a year (think about it;
 *Jan/Feb/Mar*, *Feb/Mar/Apr*, ..., *Nov/Dec/Jan*, etc), there is a chance of
 about $\frac{1}{52}$ that a single three-month period with $\geq 46$ homicides
 will occur in a given year.
 
+{% endkatexmm %}
+
 Another way to put this is that this phenomenon is likely to occur once every
-$52$ or so years. Very uncommon, but not altogether unexpected every once in a
+52 or so years. Very uncommon, but not altogether unexpected every once in a
 while.
 
 ```
@@ -157,7 +167,5 @@ going to be some city or other throughout the world experiencing this kind of
 phenomenon.
 
 My bet? We'll see a regression to the mean over the next month or two and this
-won't be mentioned in the media for another $52$ years (or thereabouts!) - after
+won't be mentioned in the media for another 52 years (or thereabouts!) - after
 all, it's probably just statistical noise.
-
-{%- endkatexmm %}
