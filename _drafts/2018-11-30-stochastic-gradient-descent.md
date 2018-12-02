@@ -15,7 +15,7 @@ architectures.
 <!-- more -->
 
 
-## A Recap of Gradient Descent
+## A recap of Gradient Descent
 
 OK, so first off let's start with a recap of our good ol' buddy gradient
 descent. Gradient descent is an iterative optimisation algorithm that takes
@@ -30,6 +30,7 @@ Basically, the algorithm finds the direction that most minimises the
 objective... and then takes a single step in that direction. Rinse and repeat
 until convergence!
 
+{% katexmm %}
 
 ### A quick peek under the bonnet...
 
@@ -40,11 +41,11 @@ single iteration of the algorithm (a single update of the parameters $\theta$)
 would look something like this;
 
 $$
-\theta = \theta_{old} - \alpha \nabla_{\theta} E\left[ J(\theta) \right]
+\theta = \theta_{old} - \alpha \nabla_{\theta} E\left[ J(\theta, X, y) \right]
 $$
 
 The interesting thing to note here is that this requires computing the *expected
-value* of the function $J(\theta)$ over the whole dataset. That is, the
+value* of the function $J(\theta, X, y)$ over the whole dataset. That is, the
 objective function is evaluated over the entire dataset and then averaged - for
 each iteration of the GD algorithm. This is fine for small optimisation tasks,
 but this can hit significant problems at scale - as evaluating a function over a
@@ -63,8 +64,6 @@ In this case, our learning problem has $n$ examples and $m$ features. Let's
 define some things up front, so that our objective function makes sense to
 read.
 
-{% katexmm %}
-
 * Let $\underset{m \times n}{X}$ be our design matrix - with rows for each
   training example and columns for each feature (and an additional column for
   the bias term)
@@ -76,7 +75,7 @@ read.
 In this case, the objective function over a dataset $X$ is defined as follows;
 
 $$
-f(\theta) = \frac{1}{2m} (y - \theta^{T}X)^{T}(y - \theta^{T}X)
+J(\theta, X, y) = \frac{1}{2m} (y - \theta^{T}X)^{T}(y - \theta^{T}X)
 $$
 
 Note that sometimes machine learning practitioners divide this function by a
@@ -84,12 +83,13 @@ factor of two (i.e. the $\frac{1}{2m}$ at the beginning) so that the derivative
 is a little bit neater. This isn't strictly necessary and doesn't change the
 overall shape of the function at all - it's just a mathematical convenience.
 
-To use gradient descent to optimise $f(\theta)$, we'd want to begin by setting
-$\theta$ to some arbitrary values. We then evaluate the gradient $f(\theta)$ at
-that point to get an idea of the general shape of the function.  We then focus
-on taking a number of small steps "downhill" by iteratively updating $\theta$
-by nudging the weights in the direction that minimises the objective. By taking
-enough steps this way, we will eventually arrive at an optimum.
+To use gradient descent to optimise $J(\theta, X, y)$, we'd want to begin by
+setting $\theta$ to some arbitrary values. We then evaluate the gradient
+$J(\theta, X, y)$ at that point to get an idea of the general shape of the
+function.  We then focus on taking a number of small steps "downhill" by
+iteratively updating $\theta$ by nudging the weights in the direction that
+minimises the objective. By taking enough steps this way, we will eventually
+arrive at an optimum.
 
 One thing to note here is that the linear regression objective function is
 quadratic (like the one pictured below). It is therefore convex and has a
@@ -106,23 +106,27 @@ handy here.
 
 $$
 \begin{aligned}
-\frac{\partial}{\partial \theta} J(\theta)
+\frac{\partial}{\partial \theta} J(\theta, X, y)
     & = \frac{\partial}{\partial \theta} \frac{1}{2m} (y - X\theta)(y - X\theta) \\
     & = \frac{\partial}{\partial \theta} \big( \frac{1}{2m} y^{T}y - 2y^{T}X\theta + \theta^{T}X^{T}X\theta \big) \\
     & = \frac{1}{2m} \big(-2y^{T}X + \frac{\partial}{\partial \theta} \theta^{T}X^{T}X\theta) \big) \\
     & = \frac{1}{2m} \big(-2y^{T}X + 2X^{T}X\theta \big) \\
-    & = \frac{1}{m} \big(-2y^{T}X + 2X^{T}X\theta \big) \\
-    & = \frac{1}{m} \big(2X^{T}X\theta - 2y^{T}X \big)
+    & = \frac{1}{m} \big(-y^{T}X + X^{T}X\theta \big) \\
+    & = \frac{1}{m} \big(X^{T}X\theta - y^{T}X \big)
 \end{aligned}
 $$
 
 
-## Stochastic Gradient Descent
+## Now... back to SGD
 
 Remember the gradient descent parameter update from earlier? Good stuff. The
 update procedure for SGD is almost exactly the same - except we don't take the
 expected value of the objective function over the entire dataset, we simply
 compute it for *a single row*[^1].
+
+$$
+\theta = \theta_{old} - \alpha \nabla_{\theta} J(\theta, X_{(i)}, y_{(i)})
+$$
 
 As you may expect, this has some significant implications for setting the
 learning rate. Typically (during the initial iterations, at least), parameters
@@ -130,10 +134,6 @@ learning rate. Typically (during the initial iterations, at least), parameters
 updated directly with each training example. Over time, as the number of
 training examples analysed grows larger, the influence of each individual
 example diminishes and the parameters will start to converge to a steady state.
-
-$$
-\theta = \theta_{old} - \alpha \nabla_{\theta} E\left[ f(\theta) \right]
-$$
 
 
 ### Choosing a learning schedule)
