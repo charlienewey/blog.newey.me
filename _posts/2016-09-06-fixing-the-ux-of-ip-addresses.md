@@ -153,8 +153,8 @@ URLs at [GFYCat][3] (e.g. "https://gfycat.com/AthleticTinyBeauceron").
 Let's give this a try. I have acquired a list of ~91,000 nouns from [here][4].
 I have then converted each word to lowercase, ensured there were no duplicate
 words, selected 65,536 words from the list entirely at random (using the `shuf
--n 65536` Unix command), and written this out to a new file (available
-[here][5]). Now we can now start thinking about converting IPs to phrases.
+-n 65536` Unix command), and written this out to a new file. Now we can now
+start thinking about converting IPs to phrases.
 
 We can essentially treat an IP address (4 groups of integers between 0-255) as
 a base-256 number with 4 digits. What we need to do is convert that base-256
@@ -239,4 +239,3 @@ think so.
 [2]: https://xkcd.com/936/
 [3]: https://gfycat.com/AthleticTinyBeauceron
 [4]: http://www.ashley-bovan.co.uk/words/partsofspeech.html
-[5]: https://gist.githubusercontent.com/charlienewey/08c316a3460863caf78c99244eb3a6c7/raw/3b15a75372c0e9da829944fd92233b2990915c9c/nouns.txt

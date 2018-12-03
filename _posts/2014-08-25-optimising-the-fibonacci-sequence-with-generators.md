@@ -167,10 +167,9 @@ def fib_seq_gen(n):
         yield b
 ```
 
-The proof of the pudding is in the eating, so to speak, so I knocked [this
-script](https://gist.github.com/charlienewey/da4616e9130f5a9d4682) together to
-test various performance aspects of each of the methods I've detailed above.
-The results are as follows:
+The proof of the pudding is in the eating, so to speak, so I knocked a script
+together to test various performance aspects of each of the methods I've
+detailed above. The results are as follows:
 
 ```
 --- Average Memory Consumption (MB) ---
