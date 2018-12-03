@@ -1,16 +1,18 @@
----
+- --
 layout: post
 title: Stochastic gradient descent
 date: 2018-10-30 17:18:21.000000000 +01:00
 ---
 
-Stochastic Gradient Descent (let's call it SGD from now on, because that feels a
-bit less repetitive) is an online optimisation algorithm that's received a lot
-of attention in recent years for several reasons (and is notable for its
+Stochastic Gradient Descent (let's call it SGD from now on, because that feels
+a bit less repetitive) is an online optimisation algorithm that's received a
+lot of attention in recent years for several reasons (and is notable for its
 applications in optimising neural networks). One of the most attractive things
 about this algorithm is its sheer scalability - because of how it differs from
-other gradient descent algorithms, SGD lends itself neatly to massively parallel
-architectures.
+other gradient descent algorithms, SGD lends itself neatly to massively
+parallel architectures. More than that, SGD is also a very capable online
+learning algorithm - that is, it's capable of dealing with streaming data as
+well.
 
 <!-- more -->
 
@@ -22,34 +24,34 @@ descent. Gradient descent is an iterative optimisation algorithm that takes
 small steps towards a minimum of some function (notice that I say *a* minimum
 instead of *the* minimum - GD can get caught in local minima if the starting
 point is poorly chosen or the function is highly nonconvex). GD works by
-evaluating the output of the objective function at a particular set of parameter
-values - and then taking partial derivatives of the output with respect to each
-of the parameters. Using these partial derivatives, it's possible to determine
-which parameters to modify to minimise the value of the objective function.
-Basically, the algorithm finds the direction that most minimises the
-objective... and then takes a single step in that direction. Rinse and repeat
-until convergence!
+evaluating the output of the objective function at a particular set of
+parameter values - and then taking partial derivatives of the output with
+respect to each of the parameters. Using these partial derivatives, it's
+possible to determine which parameters to modify to minimise the value of the
+objective function.  Basically, the algorithm finds the direction that most
+minimises the objective... and then takes a single step in that direction.
+Rinse and repeat until convergence!
 
 {% katexmm %}
 
 ### A quick peek under the bonnet...
 
-That's the basic intuition covered, but let's take a little review of the maths.
-The GD algorithm's objective is to minimise some function $J$ by determining the
-optimal values of some parameter set $\theta$. This is done repeatedly, so a
-single iteration of the algorithm (a single update of the parameters $\theta$)
-would look something like this;
+That's the basic intuition covered, but let's take a little review of the
+maths.  The GD algorithm's objective is to minimise some function $J$ by
+determining the optimal values of some parameter set $\theta$. This is done
+repeatedly, so a single iteration of the algorithm (a single update of the
+parameters $\theta$) would look something like this;
 
 $$
 \theta = \theta_{old} - \alpha \nabla_{\theta} E\left[ J(\theta, X, y) \right]
 $$
 
-The interesting thing to note here is that this requires computing the *expected
-value* of the function $J(\theta, X, y)$ over the whole dataset. That is, the
-objective function is evaluated over the entire dataset and then averaged - for
-each iteration of the GD algorithm. This is fine for small optimisation tasks,
-but this can hit significant problems at scale - as evaluating a function over a
-whole dataset can prove an intractable task.
+The interesting thing to note here is that this requires computing the
+*expected value* of the function $J(\theta, X, y)$ over the whole dataset. That
+is, the objective function is evaluated over the entire dataset and then
+averaged - for each iteration of the GD algorithm. This is fine for small
+optimisation tasks, but this can hit significant problems at scale - as
+evaluating a function over a whole dataset can prove an intractable task.
 
 
 ### An example with Linear Regression
@@ -101,8 +103,8 @@ functions.
 
 #### Figuring out which way is downhill
 
-Let's compute the derivative for this objective function - once we've done that,
-we can start stepping down the hill. This involves a little bit of matrix
+Let's compute the derivative for this objective function - once we've done
+that, we can start stepping down the hill. This involves a little bit of matrix
 calculus, so I've left some extra steps in so that it's clear what's happening.
 Both Cosma Shalizi's lecture notes[^0] and the Matrix Cookbook[^3] are really
 handy here.
@@ -140,25 +142,52 @@ dataset](/images/gradient-descent-error.png)
 
 
 
-## Now... back to SGD
+## Now... back to SGD!
 
 Right. Now that we've recapped bog-standard gradient descent, let's dive right
 into the interesting stuff. Luckily, you now know everything you need to
 understand SGD because it's only a slight modification to the standard
 algorithm. The update procedure for SGD is almost exactly the same as for
 standard GD - except we don't take the expected value of the objective function
-over the entire dataset, we simply compute it for *a single row*[^1].
+over the entire dataset, we simply compute it for *a single row*[^1]. That is,
+we just slice out a single row of our training data, and use that in a single
+iteration of the SGD algorithm.
 
 $$
 \theta = \theta_{old} - \alpha \nabla_{\theta} J(\theta, X_{(i)}, y_{(i)})
 $$
 
-As you may expect, this has some significant implications for setting the
-learning rate. Typically (during the initial iterations, at least), parameters
-($\theta$) in SGD will initially have far greater variance as they're being
+Of course, as we're only computing the gradient based on a single example at
+a time, we're going to need far more iterations to converge upon a sensible
+result. It's quite a natural way to think about presenting data to SGD in terms
+of "epochs" - essentially presenting as many examples as were in the original
+dataset. So, in this case, 200 epochs is approximately equal to 200 passes of
+the gradient descent algorithm above.
+
+![Error convergence after 200 SGD "epochs" (approx. 10,000 iterations) on the
+Boston housing dataset](/images/stochastic-gradient-descent-error.png)
+
+After 200 epochs, the MSE converges to a reasonably stable figure - similar to
+the unmodified gradient descent algorithm above.
+
+However - as you may expect, updating the parameter vector based on a *single
+training example* is going to play havoc with the initial variance in the
+training error (and the gradient of the parameter vector). This has some
+significant implications for setting the learning rate - because the variance
+is so high, a considerably smaller learning rate is required.
+
+Typically (during the initial few iterations, at least), the parameter vector
+($\theta$) in SGD will initially have far greater variance as it's being
 updated directly with each training example. Over time, as the number of
 training examples analysed grows larger, the influence of each individual
 example diminishes and the parameters will start to converge to a steady state.
+
+To demonstrate the high variance in SGD, here's a comparison of the error rate
+convergence during the first 50 iterations of standard GD (left) and SGD
+(right);
+
+![Difference between error convergence on first 50 iterations of GD and
+SGD](/images/gradient-descent-stochastic-gd-convergence.png)
 
 
 ### Choosing a learning schedule
@@ -166,8 +195,8 @@ example diminishes and the parameters will start to converge to a steady state.
 The sensitivity of the SGD algorithm to individual training examples means that
 it's much more important to correctly choose the learning rate, $\alpha$ (this
 isn't such a problem with other variants of the GD algorithm). Setting $\alpha$
-too high means the algorithm won't converge smoothly (if at all), and setting it
-too low means that it'll take far longer to converge than necessary.
+too high means the algorithm won't converge smoothly (if at all), and setting
+it too low means that it'll take far longer to converge than necessary.
 
 There are several heuristic approaches for setting $\alpha$ that seem to be
 relatively common in practice (and although there's fairly scant theoretical
@@ -179,9 +208,6 @@ algorithm begins to converge, or using an optimisation technique like simulated
 annealing to periodically choose a better learning rate).
 
 
-## Batch GD, Mini-Batch GD, SGD?
-
-
 ## Extra bits and caveats
 
 ### Scaling
@@ -191,31 +217,37 @@ One of the most important things to do before using SGD on your data is to
 straightforward as $X_{scaled} = \frac{(X - \bar{X})}{\sigma_X^{2}}$. If this
 isn't done, this can have serious negative effects - in the best case scenario,
 the gradient will be computed incorrectly and will cause slow convergence. In
-the worst case, the gradient will run away with you (the "exploding gradient"
-or "vanishing gradient") and stop the algorithm converging at all.
+the worst case, the gradient will run away with you (i.e. the "exploding
+gradient" or "vanishing gradient") and stop the algorithm converging at all.
 
 
 ### Dataset ordering
 
-One thing that can negatively impact SGD's performance is biased ordering in the
-dataset. If there's some meaningful ordering to the data (e.g. horse racing
-results where race winners are listed in the first row for each race), then this
-can bias the gradients - if this happens over an appreciable number of training
-examples, then this can cause the algorithm to choose vastly sub-optimal
-parameter values. There are several ways around this, but the easiest solution
-is simply to shuffle the dataset before using SGD.
-
-
-### Momentum
-
-
-## Confidence scores
-
-["Decision function" in `sklearn`][8]
+One thing that can negatively impact SGD's performance is biased ordering in
+the training data. If there's some meaningful ordering to the data (e.g. horse
+racing results where race winners are listed in the first row for each race),
+then this can bias the gradients - if this happens over an appreciable number
+of training examples, then this can cause the algorithm to choose vastly
+sub-optimal parameter values. There are several ways around this, but the
+easiest solution is simply to shuffle the dataset before using SGD.
 
 
 {% endkatexmm %}
 
+## In summary
+
+So, that's it - SGD in a nutshell. We looked at gradient descent from first
+principles, and applied it to a standard least-squares linear regression
+problem (which we also derived from scratch). We then implemented stochastic
+gradient descent for comparison, and achieved similar results (but with some
+small trade-offs).
+
+That just about covers the main points of the SGD algorithm - but there's so
+much more to learn! Check out the resources in the references section for a
+more in-depth look. Until next time!
+
+
+## References and further reading
 
 [^0]: [Simple Linear Regression in Matrix Format; Cosma Shalizi (2015)][0]
 [^1]: [Optimization: Stochastic Gradient Descent; Stanford Deep Learning][1]
