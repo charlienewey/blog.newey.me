@@ -3,7 +3,7 @@
 set -e
 
 bundle exec jekyll build
-bundle exec htmlproofer --url-ignore "/#respond/" \
+bundle exec htmlproofer --url-ignore "/#respond/,/\/page\/\d+/" \
                         --http-status-ignore 0 \
                         --check-html \
                         --check-opengraph \
