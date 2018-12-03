@@ -75,7 +75,7 @@ read.
 In this case, the objective function over a dataset $X$ is defined as follows;
 
 $$
-J(\theta, X, y) = \frac{1}{2m} (y - \theta^{T}X)^{T}(y - \theta^{T}X)
+J(\theta, X, y) = \frac{1}{2n} (y - \theta^{T}X)^{T}(y - \theta^{T}X)
 $$
 
 Note that sometimes machine learning practitioners divide this function by a
@@ -98,6 +98,9 @@ functions.
 
 ![A quadratic function (like this) has a single global optimum.](/images/objective-function.png)
 
+
+#### Figuring out which way is downhill
+
 Let's compute the derivative for this objective function - once we've done that,
 we can start stepping down the hill. This involves a little bit of matrix
 calculus, so I've left some extra steps in so that it's clear what's happening.
@@ -107,22 +110,44 @@ handy here.
 $$
 \begin{aligned}
 \frac{\partial}{\partial \theta} J(\theta, X, y)
-    & = \frac{\partial}{\partial \theta} \frac{1}{2m} (y - X\theta)(y - X\theta) \\
-    & = \frac{\partial}{\partial \theta} \big( \frac{1}{2m} y^{T}y - 2y^{T}X\theta + \theta^{T}X^{T}X\theta \big) \\
-    & = \frac{1}{2m} \big(-2y^{T}X + \frac{\partial}{\partial \theta} \theta^{T}X^{T}X\theta) \big) \\
-    & = \frac{1}{2m} \big(-2y^{T}X + 2X^{T}X\theta \big) \\
-    & = \frac{1}{m} \big(-y^{T}X + X^{T}X\theta \big) \\
-    & = \frac{1}{m} \big(X^{T}X\theta - y^{T}X \big)
+    & = \frac{\partial}{\partial \theta} \frac{1}{2n} (y - X\theta)(y - X\theta) \\
+    & = \frac{1}{2n} \frac{\partial}{\partial \theta} \big( y^{T}y - 2\theta^{T}X^{T}y + \theta^{T}X^{T}X\theta \big) \\
+    & = \frac{1}{2n} \big(-2X^{T}y + \frac{\partial}{\partial \theta} \theta^{T}X^{T}X\theta) \big) \\
+    & = \frac{1}{2n} \big(-2X^{T}y + 2X^{T}X\theta \big) \\
+    & = \frac{1}{n} \big(-X^{T}y + X^{T}X\theta \big) \\
+    & = \frac{1}{n} \big(X^{T}X\theta - X^{T}y \big)
 \end{aligned}
 $$
 
 
+#### Putting it all together
+
+Now that the derivative of this function is known, we can plop it directly into
+the gradient descent algorithm. The objective function that we determined
+earlier computes the *expected value* over the entire dataset, so we can simply
+drop it in place. A single round of parameter updates would look like this:
+
+$$
+\theta = \theta - \alpha \big( \frac{1}{n} X^{T}X\theta  - X^{T}y \big)
+$$
+
+I applied this parameter update to the Boston housing dataset (200 iterations
+with a constant $\alpha = 0.05$), and charted the error below. You can see the
+error begin to converge to a stable state after about 25 iterations;
+
+![Error convergence after 200 iterations on the Boston housing
+dataset](/images/gradient-descent-error.png)
+
+
+
 ## Now... back to SGD
 
-Remember the gradient descent parameter update from earlier? Good stuff. The
-update procedure for SGD is almost exactly the same - except we don't take the
-expected value of the objective function over the entire dataset, we simply
-compute it for *a single row*[^1].
+Right. Now that we've recapped bog-standard gradient descent, let's dive right
+into the interesting stuff. Luckily, you now know everything you need to
+understand SGD because it's only a slight modification to the standard
+algorithm. The update procedure for SGD is almost exactly the same as for
+standard GD - except we don't take the expected value of the objective function
+over the entire dataset, we simply compute it for *a single row*[^1].
 
 $$
 \theta = \theta_{old} - \alpha \nabla_{\theta} J(\theta, X_{(i)}, y_{(i)})
@@ -136,7 +161,7 @@ training examples analysed grows larger, the influence of each individual
 example diminishes and the parameters will start to converge to a steady state.
 
 
-### Choosing a learning schedule)
+### Choosing a learning schedule
 
 The sensitivity of the SGD algorithm to individual training examples means that
 it's much more important to correctly choose the learning rate, $\alpha$ (this
@@ -158,6 +183,17 @@ annealing to periodically choose a better learning rate).
 
 
 ## Extra bits and caveats
+
+### Scaling
+
+One of the most important things to do before using SGD on your data is to
+*scale* your input variables to have a zero mean and unit variance. This is as
+straightforward as $X_{scaled} = \frac{(X - \bar{X})}{\sigma_X^{2}}$. If this
+isn't done, this can have serious negative effects - in the best case scenario,
+the gradient will be computed incorrectly and will cause slow convergence. In
+the worst case, the gradient will run away with you (the "exploding gradient"
+or "vanishing gradient") and stop the algorithm converging at all.
+
 
 ### Dataset ordering
 
