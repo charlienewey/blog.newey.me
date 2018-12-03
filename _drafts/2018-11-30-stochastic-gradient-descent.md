@@ -1,4 +1,4 @@
-- --
+---
 layout: post
 title: Stochastic gradient descent
 date: 2018-10-30 17:18:21.000000000 +01:00
