@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Stochastic gradient descent\: An overview
-date: 2018-10-30 17:18:21.000000000 +01:00
+title: Diving into stochastic gradient descent
+date: 2018-12-04 12:40:00.000000000 +00:00
 ---
 
 Stochastic Gradient Descent (let's call it SGD from now on, because that feels
