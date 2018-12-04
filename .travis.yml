@@ -2,6 +2,9 @@ language: ruby
 rvm:
   - 2.5.1
 
+before_install:
+  - openssl aes-256-cbc -K $encrypted_f37e748a9cc1_key -iv $encrypted_f37e748a9cc1_iv -in _script/github_deploy_key.enc -out github_deploy_key -d
+
 before_script:
   - chmod +x ./_script/cibuild
   - chmod +x ./_script/deploy
