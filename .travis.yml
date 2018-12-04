@@ -11,7 +11,12 @@ before_script:
 
 script: ./_script/cibuild
 
-after_script: ./_script/deploy
+after_script:
+  - |
+    $(npm bin)/set-up-ssh --key "$encrypted_f37e748a9cc1_key" \
+                          --iv "$encrypted_f37e748a9cc1_iv" \
+                          --path-encrypted-key "._script/github_deploy_key.enc"
+#  - ./_script/deploy
 
 # branch whitelist, only for GitHub Pages
 branches:
