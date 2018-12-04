@@ -1,40 +1,29 @@
 language: ruby
 rvm:
-  - 2.5.1
-
+- 2.5.1
 before_install:
-  - openssl aes-256-cbc -K $encrypted_f37e748a9cc1_key -iv $encrypted_f37e748a9cc1_iv -in _script/github_deploy_key.enc -out github_deploy_key -d
-
+- openssl aes-256-cbc -K $encrypted_e5cde1f85b15_key -iv $encrypted_e5cde1f85b15_iv
+  -in github_deploy_key.enc -out ../github_deploy_key -d
+  -in _script/github_deploy_key.enc -out github_deploy_key -d
 before_script:
-  - chmod +x ./_script/cibuild
-  - chmod +x ./_script/deploy
-
-script: ./_script/cibuild
-
+- chmod +x ./_script/cibuild
+- chmod +x ./_script/deploy
+script: "./_script/cibuild"
 after_script:
-  - |
-    $(npm bin)/set-up-ssh --key "$encrypted_f37e748a9cc1_key" \
-                          --iv "$encrypted_f37e748a9cc1_iv" \
-                          --path-encrypted-key "._script/github_deploy_key.enc"
-#  - ./_script/deploy
-
-# branch whitelist, only for GitHub Pages
+- |
+  $(npm bin)/set-up-ssh --key "$encrypted_e5cde1f85b15_key" \
+                        --iv "$encrypted_e5cde1f85b15_iv" \
+                        --path-encrypted-key "._script/github_deploy_key.enc"
 branches:
   only:
-    - master       # test the master branch
-    - gh-pages     # test the gh-pages branch
-    - /pages-(.*)/ # test every branch which starts with "pages-"
-
+  - master
+  - gh-pages
+  - "/pages-(.*)/"
 env:
   global:
-    # speeds up installation of html-proofer
-    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-
-# uses faster container-based infrastructure
+  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 sudo: false
-
-# update SSL certificates
 addons:
   apt:
     packages:
-    - libcurl4-openssl-dev # required to avoid SSL errors
+    - libcurl4-openssl-dev
