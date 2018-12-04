@@ -291,7 +291,7 @@ below for even more information on SGD. Until next time!
 [^4]: [The Boston Housing Dataset; University of Toronto (1996)][4]
 
 [0]: https://web.archive.org/web/20181126144751/https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/13/lecture-13.pdf
-[1]: https://web.archive.org/web/20181202225515/http://deeplearning.stanford.edu/tutorial/supervised/OptimizationStochasticGradientDescent
+[1]: https://web.archive.org/web/20181204125611/http://deeplearning.stanford.edu/tutorial/supervised/OptimizationStochasticGradientDescent
 [2]: https://web.archive.org/web/20170125203645/https://istcolloq.gsfc.nasa.gov/fall2009/presentations/bottou.pdf
 [3]: https://web.archive.org/web/20181202222329/https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf
 [4]: https://www.cs.toronto.edu/~delve/data/boston/bostonDetail.html
