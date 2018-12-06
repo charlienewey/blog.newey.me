@@ -269,6 +269,33 @@ choose vastly sub-optimal parameter values. There are several ways around this,
 but the easiest solution is simply to shuffle the dataset before using SGD.
 
 
+
+## The solution? Mini-batch gradient descent
+
+Mini-batch gradient descent (MBGD)uses, surprisingly enough, small bundles of
+training examples to optimise the parameters in batches. This is actually quite
+a neat formulation, as it addresses some of the problems of *both* vanilla GD
+and SGD outlined above. Firstly, performing optimisation in small batches of
+training examples allows programmers to use a vectorised implementation of
+gradient descent - which is considerably faster than the iterative approach in
+SGD. However, MBGD is still very easy to parallelise as it will typically use a
+relatively small batch size (e.g. it's perfectly feasible to use a batch size
+of 100 to 200 examples).
+
+Secondly, because training happens in batches (even if they're only small
+ones) this has the handy side-effect of substantially reducing the variance
+between iterative applications of the algorithm. Note that this won't
+remove all of the variance between iterations - but it will certainly help.
+Again, a single parameter update with MBGD would look something like this;
+
+$$
+\theta = \theta_{old} - \alpha \frac{1}{b} \nabla_{\theta} J(\theta; X_{[i, i + b]}, y_{[i, i + b]})
+$$
+
+Note that the batch size here is denoted by $b$ - and the indices on $X$ and
+$y$ simply indicate a *slice* of the dataset (i.e. a mini-batch).
+
+
 {% endkatexmm %}
 
 ## In summary
@@ -277,9 +304,11 @@ So, that's it - SGD in a nutshell. We looked at gradient descent from first
 principles, and applied it to a standard least-squares linear regression
 problem (which we also derived from scratch). We then implemented stochastic
 gradient descent for comparison, and achieved similar results (but with some
-small trade-offs). Finally, we looked at some caveats and traps that you should
-keep in mind when implementing SGD yourself. Check out the further reading
-below for even more information on SGD. Until next time!
+small trade-offs). We looked at some caveats and traps that you should keep in
+mind when implementing SGD yourself, and finally, we proposed mini-batch GD as
+a potential best-of-both-worlds compromise between vanilla GD and SGD. Check
+out the further reading below for more information and further reading. Until
+next time!
 
 
 ## References and further reading
