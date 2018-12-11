@@ -46,11 +46,11 @@ $$
 
 The interesting thing to note here is that GD requires computing the *expected
 value* of the function $J(\theta; X, y)$ over the whole dataset (i.e. $E\left[
-J(\theta; X, y) \right]$. That is, the objective function is evaluated over the
-entire dataset and then averaged - and this happens during each iteration of
-the GD algorithm. This is fine for smaller optimisation tasks, but this can run
-into significant problems at scale - evaluating a function over a whole dataset
-can prove intractable.
+J(\theta; X, y) \right]$). That is, the objective function is evaluated over
+the entire dataset and then averaged - and this happens during each iteration
+of the GD algorithm. This is fine for smaller optimisation tasks, but this can
+run into significant problems at scale - evaluating a function over a whole
+dataset can prove intractable.
 
 
 ### An example with Linear Regression
