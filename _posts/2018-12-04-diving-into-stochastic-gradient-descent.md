@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Diving into Stochastic Gradient Descent
+title: Diving into stochastic gradient descent
 date: 2018-12-04 12:40:00 +00:00
 ---
 
