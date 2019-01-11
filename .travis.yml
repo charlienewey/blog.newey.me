@@ -3,7 +3,7 @@ sudo: false
 cache: tmp/
 
 before_install:
-  - openssl aes-256-cbc -K $encrypted_f1b2b8e787cf_key -iv $encrypted_f1b2b8e787cf_iv -in _script/github_deploy_key.enc -out ./github_deploy_key -d
+  - openssl aes-256-cbc -K $encrypted_f1b2b8e787cf_key -iv $encrypted_f1b2b8e787cf_iv -in scripts/github_deploy_key.enc -out ./github_deploy_key -d
   - chmod 600 ./github_deploy_key
   - eval $(ssh-agent -s)
   - ssh-add ./github_deploy_key
@@ -15,14 +15,13 @@ install:
   - sudo bash -s /tmp/htmltest.sh -b /usr/local/bin
 
 before_script:
-- chmod +x ./_script/cibuild
-- chmod +x ./_script/deploy
+- chmod +x ./scripts/deploy
 
 script:
   - hugo --minify
   - htmltest
 
-after_script: ./_script/deploy
+after_script: ./scripts/deploy
 
 branches:
   only:
