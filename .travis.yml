@@ -19,7 +19,7 @@ before_script:
 
 script:
   - hugo --minify
-  - htmltest
+  - ./bin/htmltest
 
 after_script: ./scripts/deploy
 
