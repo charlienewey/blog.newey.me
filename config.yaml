@@ -1,0 +1,68 @@
+title: './backlog: Charlie''s blog'
+languageCode: en-gb
+drafts: false
+
+baseURL: https://blog.newey.me
+canonifyURLs: true
+relativeURLs: true
+uglyURLs: false
+permalinks:
+  pages: '/:slug/'
+  posts: '/:slug/'
+
+
+footnoteReturnLinkContents: '↩'
+enableRobotsTXT: true
+enableEmoji: true
+pygmentsCodeFences: true
+
+latexDashes: true
+smartDashes: true
+
+metaDataFormat: 'yaml'
+frontmatter:
+  date: ['date', 'publishDate', 'lastmod']
+  lastmod: [':git', 'lastmod', 'date', 'publishDate']
+  publishDate: ['publishDate', 'date']
+  expiryDate: ['expiryDate']
+
+watch: true
+
+taxonomies:
+  post: 'posts'
+  category: 'categories'
+  tag: 'tags'
+
+params:
+  subtitle: 'meanderings through tidbits of mathsy computery stuff'
+  copyrightHolder: 'Charles Newey'
+  showPoweredBy: false
+
+  paginate: +5
+  paginatePath: 'page'
+
+# Navigation menu
+menu:
+  nav:
+    - name: 'Home'
+      pre: '<i class="fa fa-home fa-lg"></i> '
+      weight: -110
+      identifier: 'home'
+      url: '/'
+    - name: 'Post Archive'
+      pre: '<i class="fa fa-book fa-lg"></i> '
+      weight: -100
+      identifier: 'posts'
+      url: '/posts/'
+    - name: 'Categories'
+      pre: '<i class="fa fa-tags fa-lg"></i> '
+      weight: -90
+      identifier: 'categories'
+      url: '/categories/'
+
+  footer:
+    - name: ''
+      pre: '<i class="fa fa-github fa-2x"></i> '
+      weight: -100
+      identifier: 'github'
+      url: 'https://github.com/charlienewey'

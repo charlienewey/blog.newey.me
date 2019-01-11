@@ -1,0 +1,72 @@
+---
+title: 'HackTheBurgh: My First Hackathon'
+date: 2015-03-20 02:03:34.000000000 +00:00
+meta: true
+---
+
+So I attended my first proper hackathon last weekend, and it was fantastic.
+After the **9-hour drive** (yes, 9 hours!) up to Edinburgh, my 2 friends and I
+were totally unprepared for the 30 hours of caffeine-fuelled, sleep-deprived
+insanity that followed - including people singing Taylor Swift songs at 4am,
+people sleeping in the WEIRDEST of places, and people basking in the strange
+cameraderie that you get after being shut in the same building for 2 days.
+
+<!-- more -->
+
+The weekend was broken up with fun/humiliating events (it's funny how often
+those two things coincided) like slideshow karaoke (which involves standing up
+in front of 100 people and presenting a slideshow you've never seen), werewolf
+(a guessing game involving blindfolds and very in-depth role-playing - not my
+thing but fun to watch!), and "coding in the dark" - which made staying awake a
+little less arduous.
+
+
+## What we made
+
+We made an online multiplayer top-trumps-style card game using real-time stock
+market data. Essentially players are able to access a uniquely-generated URL,
+share that URL with others and play an interactive multiplayer top-trumps style
+card game in real-time over the internet.
+
+
+## What it's built with
+
+We built the server in Node and the client with HTML5 and JavaScript. The
+client-to-server communication is done with WebSockets (a nice simple two-way
+communication protocol with persistent connections). The entire project took
+about 24 hours to build with the 3 of us working on it together - we almost hit
+180 commits over the weekend!
+
+
+## Problems we had
+
+We originally started designing the web server in Python 3 (Python 3 is my most
+productive language and I was originally responsible for writing the server),
+but for some reason I couldn't get the `asyncio` WebSockets library working
+correctly. After a couple of hours struggling with this and being conscious of
+time, we decided to do a U-turn and use Node - a language that none of us were
+particularly familiar with and that we essentially learned overnight!
+
+
+## The finished product
+
+Unfortunately because the project used Bloomberg's proprietary API, the web
+service had to be taken offline at the end of the weekend, so there's no live
+version of the project running anywhere. However, we did come up with a [set of
+slides](https://github.com/daphack/hacktheburgh15/blob/master/slides/StockTrumps.odp?raw=true)
+that give a brief overview of the project (disclaimer: it includes animated
+GIFs - the hackathon had an informal atmosphere!). There are also [some
+screenshots of the
+project](https://github.com/daphack/hacktheburgh15/tree/master/screenshots) on
+GitHub.
+
+## Aftermath
+
+Going to HackTheBurgh was one of the best weekends I've had this year, and my
+friends felt the same way. I learnt an awful lot in a short space of time, and
+helped to build something in 24 hours that my team were all really proud of.
+
+It's not as if it wasn't tiring, however; I'm writing this post 3 days after I
+returned from Edinburgh and I'm still absolutely exhausted... and I'm currently
+being held together by tea and biscuits. Despite the tiredness, HackTheBurgh
+was a genuinely great experience - one I can't wait to repeat.

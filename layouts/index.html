@@ -1,0 +1,21 @@
+{{ partial "header.html" . }}
+<body>
+<div id="layout" class="pure-g">
+<article class="pure-u-1">
+{{ partial "brand.html" . }}
+
+{{ $paginator := .Paginate (where .Data.Pages "Type" "posts") .Site.Params.paginate }}
+{{ range $paginator.Pages }}
+  {{ partial "content.header.html" . }}
+  <p>{{ .Summary | markdownify }}</p>
+  {{ if .Truncated }}
+  <p><a href="{{ .RelPermalink  }}">Read On &rarr;</a></p>
+  {{ end }}
+{{ end }}
+{{ template "_internal/pagination.html" . }}
+
+{{ partial "footer.html" . }}
+</article>
+</div>
+</body>
+</html>

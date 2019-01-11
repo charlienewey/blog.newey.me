@@ -1,0 +1,19 @@
+{{ partial "header.html" . }}
+
+<body>
+<div id="layout" class="pure-g">
+<article class="pure-u-1">
+{{ partial "brand.html" . }}
+{{ partial "content.header.html" . }}
+{{ partial "toc.html" . }}
+<section>{{ .Content | markdownify }}</section>
+<section>
+  {{ if or .Params.comments (not (isset .Params "comments")) }}
+    {{ partial "comments.html" . }}
+  {{ end }}
+  {{ partial "footer.html" . }}
+</section>
+</article>
+</div>
+</body>
+</html>

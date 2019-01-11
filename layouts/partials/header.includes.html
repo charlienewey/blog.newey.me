@@ -1,0 +1,24 @@
+<!-- Load KaTeX, if necessary. -->
+{{ if or .Params.math .IsHome }}
+  {{ partial "math.html" . }}
+{{ end }}
+
+<!-- Pure CSS -->
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+<!--<![endif]-->
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+<!-- Main CSS file based on Pure blog layout -->
+<link rel="stylesheet" href="{{ "/css/tufte.css" | relURL }}">
+<link rel="stylesheet" href="{{ "/css/hugo-tufte.css" | relURL }}">
+<link rel="stylesheet" href="{{ "/css/hugo-tufte-override.css" | relURL }}">
+
+<!-- Syntax highlighting -->
+<link rel="stylesheet" href="{{ "/css/syntax.css" | relURL }}">

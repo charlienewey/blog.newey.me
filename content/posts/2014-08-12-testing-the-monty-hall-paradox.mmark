@@ -1,0 +1,102 @@
+---
+title: Testing the Monty Hall Paradox
+date: 2014-08-12 00:02:38.000000000 +01:00
+meta: true
+---
+
+So today I watched the Mythbusters episode that discussed the "Monty Hall
+paradox" - the infamous probability problem. The Monty Hall paradox is
+well-known enough that I've come across before during maths lessons in school,
+in probability and statistics textbooks, in lectures, on TV, and so on. This
+particular Mythbusters episode was testing the hypothesis that contestants who
+"switched" their choice were twice as likely to win.
+
+<!-- more -->
+
+Mythbusters is well known for "bad science" - that is (amongst other things),
+biased test conditions, contrived experiments, low sample sizes and so on.
+During the Monty Hall experiment in this Mythbusters episode, the low sample
+size used for the experiment annoyed me - and seeing as I didn't have anything
+else to do this evening, I had a go at testing it myself.
+
+### So what *is* the Monty Hall paradox?
+
+Essentially, the paradox arises in something like the following scenario; a
+contestant in a game show is presented with three doors. Behind two of the
+three doors are goats, and behind the remaining door is a car. Three doors
+suggest a 1 in 3 chance of selecting the car - and unless you're a bit strange,
+the goal is obviously to end up with the car as a prize. The contestant selects
+a door.
+
+From the 2 remaining doors (the ones that the contestant didn't select), the
+game show host opens one *losing* door and shows the contestant. There are now
+only two doors in the game, and the contestant is asked if they would like to
+switch their choice of doors - that is, if they would change from their initial
+choice to the remaining closed door. Intuitively, this may seem like an
+entirely pointless choice, but in reality *it isn't*. The truth is that
+switching the door selection actually *doubles* the contestant's likelihood of
+walking (or driving, as the case may be) away with the car.
+
+![Three doors, one car, and one goat](/images/monty-hall.jpg)
+
+### Wait, how does that work?!
+
+The answer is counterintuititive and has to do with [conditional
+probability](http://en.wikipedia.org/wiki/Conditional_probability). The best
+way to look at this is to look at the game as simply as possible. A contestant
+is presented with a 1 in 3 chance at a "winning" outcome (y'know, unless they
+really want a goat). There is then a 2 in 3 chance that they will have selected
+a goat from that initial choice.
+
+The event space is reduced by one - that is, a possible losing outcome is
+removed. Because the probability of choosing a goat initially was 2 in 3, the
+contestant can now make the fairly safe assumption that behind the remaining
+door is the desired outcome - the car!
+
+More formally, the contestant has a 2 in 3 chance of choosing a losing outcome
+initially (which means that they probably picked a goat the first time round).
+A losing outcome (a goat) is then removed from the event space. The contestant
+can now choose to change their choice from their 2 in 3 chance of losing to a 1
+in 3 chance of losing (which means that they will there is a 2 in 3 chance of a
+winning outcome if they switch).
+
+This idea seems confusing because it's deceptively simple. Don't believe me?
+I'll prove it!
+
+### Prove it!
+
+I'm not a mathematician by trade, so I'm probably not going to be able to make
+a beautifully elegant proof without some serious legwork. Instead, I hacked up
+a quick Python script to test the hypothesis empirically (incidentally, it's
+[on GitHub as a
+Gist](https://gist.github.com/charlienewey/53c8faedc6836e6c42ca)). As it's a
+very simple script, I ran the experiment for 1,000,000 iterations - 500,000 on
+games where the original selection is retained, and the other 500,000 where the
+original selection is changed.
+
+From the snippet below, it becomes clear that "sticking" with the original
+choice only won 166,030 games of 500,000 - a win ratio of about 33.2%... not
+great. The "switch" option appears to be a lot more profitable, winning a total
+of 333,671 games out of 500,000 - with a win ratio of 66.7% overall. Weird.
+
+```language-bash
+# charles at nevis in ~ [23:44:04]
+$ python monty.py
+Iterations:  500000
+Stick:  166030
+Switch:  333671
+Ratio (switch / stick): 2.010
+```
+
+The results are still surprising to me because they don't really correspond
+with what my instinct tells me - but the results do show that when repeating
+the experiment over millions of iterations, a contestant is indeed about *twice
+as likely* to end the game with a winning outcome.
+
+*How about that?*
+
+As always, there's plenty of information online about this topic. The
+[Wikipedia page for the Monty Hall
+problem](http://en.wikipedia.org/wiki/Monty_Hall_problem) is actually pretty
+good, and gives a slightly more mathematical description of the problem than I
+have here.

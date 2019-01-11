@@ -1,26 +1,31 @@
-language: ruby
-rvm:
-- 2.5.1
+language: go
+sudo: false
+cache: tmp/
+
 before_install:
   - openssl aes-256-cbc -K $encrypted_f1b2b8e787cf_key -iv $encrypted_f1b2b8e787cf_iv -in _script/github_deploy_key.enc -out ./github_deploy_key -d
   - chmod 600 ./github_deploy_key
   - eval $(ssh-agent -s)
   - ssh-add ./github_deploy_key
+
+install:
+  - wget -O /tmp/hugo.deb https://github.com/gohugoio/hugo/releases/download/v0.53/hugo_0.53_Linux-64bit.deb
+  - sudo dpkg -i /tmp/hugo.deb
+  - wget -O /tmp/htmltest.sh
+  - sudo bash -s /tmp/htmltest.sh -b /usr/local/bin
+
 before_script:
 - chmod +x ./_script/cibuild
 - chmod +x ./_script/deploy
-script: ./_script/cibuild
+
+script:
+  - hugo --minify
+  - htmltest
+
 after_script: ./_script/deploy
+
 branches:
   only:
   - master
   - gh-pages
   - "/pages-(.*)/"
-env:
-  global:
-  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-sudo: false
-addons:
-  apt:
-    packages:
-    - libcurl4-openssl-dev

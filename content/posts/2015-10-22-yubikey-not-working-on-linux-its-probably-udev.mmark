@@ -1,0 +1,41 @@
+---
+title: Yubikey not working on Linux? It's probably udev
+date: 2015-10-22 19:39:28.000000000 +01:00
+meta: true
+---
+
+I recently bought a [GitHub-branded U2F Yubikey](https://www.yubico.com) and
+was waiting desperately for it to arrive in the post. Unfortunately, when it
+came, I couldn't get it working on my Linux machine for love nor money.
+
+I spent a couple of hours Googling around and finally found the solution - it
+was actually on Yubico's website all along, but not very well publicised. You
+need to add some `udev` rules - I'll copy the instructions and rules below so
+that I can refer back to them in the future :-).
+
+<!-- more -->
+
+Copy the contents of this file to `/etc/udev/rules.d/70-u2f.rules` and **reboot
+your machine**.
+
+```
+# this udev file should be used with udev 188 and newer
+ACTION!="add|change", GOTO="u2f_end"
+
+# Yubico YubiKey
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1050", ATTRS{idProduct}=="0113|0114|0115|0116|0120|0402|0403|0406|0407|0410", TAG+="uaccess"
+
+# Happlink (formaly Plug-Up) Security KEY
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="2581", ATTRS{idProduct}=="f1d0", TAG+="uaccess"
+
+#  Neowave Keydo
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1e0d", ATTRS{idProduct}=="f1d0", TAG+="uaccess"
+
+# HyperSecu HyperFIDO
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="096e", ATTRS{idProduct}=="0880", TAG+="uaccess"
+
+LABEL="u2f_end"
+```
+
+Just as a quick note, I found the `udev` rules in a [Yubico Git
+repository](https://github.com/Yubico/libu2f-host/blob/master/70-u2f.rules).

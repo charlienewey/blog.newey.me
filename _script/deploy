@@ -1,5 +1,0 @@
-#! /bin/bash
-
-set -e
-
-rsync -e "ssh -i ./github_deploy_key -o StrictHostKeyChecking=no" -va ./_site/ www-data@erebor.newey.me:/var/www/newey.me/
