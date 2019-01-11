@@ -11,7 +11,7 @@ before_install:
 install:
   - wget -O /tmp/hugo.deb https://github.com/gohugoio/hugo/releases/download/v0.53/hugo_0.53_Linux-64bit.deb
   - sudo dpkg -i /tmp/hugo.deb
-  - wget -O /tmp/htmltest.sh
+  - wget -O /tmp/htmltest.sh https://htmltest.wjdp.uk
   - sudo bash -s /tmp/htmltest.sh -b /usr/local/bin
 
 before_script:
