@@ -41,7 +41,7 @@ recommendation system for features on your company's website.
 * Run workshops and training sessions for non-technical employees.
 
 
-## Question *everything* about your data
+## Question everything about your data
 
 * Data quality is going to be an issue wherever you go.
 * Learn the full provenance of your data (as much as you can, anyway).
@@ -50,6 +50,33 @@ recommendation system for features on your company's website.
 
 
 ## Close your feedback loops
+
+One commonly-encountered problem in fledgling data science teams is incomplete
+feedback --- a so-called "open feedback loop". This is definitely a situation
+I'm familiar with, and it can significantly frustrate your efforts in trying to
+develop data science product.
+
+As an example, here's a situation that I encountered at my own workplace. I
+wanted to try and reduce our customers' expenditure on new tyres for their
+fleets (aircraft tyres can cost thousands of dollars apiece), so I spent some
+time researching a data science project that would help airlines extend their
+tyres' lifetimes.
+
+I spent time researching how I might approach the project, and the different
+factors that affect tyre wear --- how different runway surface types wear tyres
+differently, how longer runways enable faster approaches (and therefore
+increase tyre wear), how different tyre compounds wear at different rates, and
+so on. I also spent some time doing feature engineering and building a plan for
+a regression model that would enable me to estimate the accumulated wear on a
+set of tyres.
+
+After all of this work, there was one thing I'd failed to take into account;
+even though I had data on approaches, runway surface types, aircraft weights,
+and so on... I couldn't get access to any information from our customers about
+*when they had to change their tyres*!
+
+
+## Quantify everything
 
 When you start a new data science team, you initially hope that your team's
 value will speak for itself. Hopefully it will, but it never hurt anybody to
@@ -68,22 +95,21 @@ having?
 If you don't already measure these quantities (or whichever other quantities
 are more relevant to you), you can't possibly measure the effects of any of
 your data science solutions. This not only makes it difficult for you to know
-that you've actually done something that benefits your business, but it also
-makes it impossible to *prove* to the business that you've generated something
-of any value at all.
+that you've accomplished your goal, but it also makes it impossible to prove to
+the business that you've generated something of any value at all.
 
-However, even if you *do* measure relevant metrics, they don't always tell you
-anything useful. Lots of these sort of metrics have a particularly slow
-feedback loop (i.e. there's a long wait between taking an action and seeing a
-result). Ideally you want to be *immediately* able to check the effect of any
-changes you make! If your feedback loop is too slow, you're running the risk of
-wasting your time working on the wrong thing.
+Even if you *do* measure relevant metrics, they don't always tell you anything
+useful. Lots of these sort of metrics have a particularly slow feedback loop
+(i.e. there's a long wait between taking an action and seeing a result).
+Ideally you want to be *immediately* able to check the effect of any changes
+you make! If your feedback loop is too slow, you're running the risk of wasting
+your time working on the wrong thing.
 
 Therefore, one of the most important things to do is design your workflow in
 such a way that you can get *prompt* and *accurate* feedback. Whether it means
 writing a Jupyter notebook that generates a one-page performance report for you
 to give to management, or whether you start holding regular standups to report
-on your team's progres... it doesn't matter. The important thing is that it
+on your team's progress... it doesn't matter. The important thing is that it
 should be quick and easy to see results.
 
 
